@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+        
+        <title>Orinoco - Accueil</title>
+    </head>
+    <body>
+        <header class="bg-dark container">
+            <div class="row">
+                <nav class="col navbar navbar-expand-lg navbar-dark">
+                    <a class="navbar-brand" href="index.html">
+                    Orinoco
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div id="navbarContent"  class="collapse navbar-collapse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Accueil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="panier.html">Panier</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>           
+        </header>
+        <main class="container">
+            <div class="row jumbotron">
+                <div class="col"> 
+                    <h1>Nous vous remercions pour votre commande !<br>
+                        Veuillez trouver ci-dessous les informations de votre commande. 
+                    </h1>
+                </div>
+            </div>
+            <div class="row jumbotron">
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <p>Prix total de votre commande<br>
+                            Numéro de votre commande
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="container">
+            <div class="row jumbotron">
+                <div class="col-12">
+                    FOOTER
+                </div>
+            </div>
+        </footer>   
+    <!-- Mise en place Javascript -->
+        <!-- Mise en place jQuery -->
+        <script src="bootstrap/js/jquery.js"></script>
+        <!-- Mise en place popper.js et bootstrap JS -->
+        <script src="bootstrap/js/bootstrap.bundle.js"></script>
+        <!-- Appel Get API -->
+        <script src="get_api.js"></script>
+    <!-- End Javascript -->
+    </body>
+</html>
