@@ -1,46 +1,54 @@
 // Récupération de données API
 
-const getRequest =function (données)
+function promiseGet() 
 {
-    const request= new XMLHttpRequest();
-    request.onreadystatechange = function() 
+    return new Promise((resolve, reject)=> 
     {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) 
+        const request= new XMLHttpRequest();
+        request.open("GET", "http://localhost:3000/api/cameras");
+        request.send();
+        request.onreadystatechange = function() 
         {
-        var response = JSON.parse(this.responseText);
-        } else 
-        {
-        console.log("Un problème est survenu");
+            if (this.readyState === XMLHttpRequest.DONE) 
+            {
+                if (this.status ===200)
+                {
+                   resolve(JSON.parse(this.responseText)) 
+                   var response = JSON.parse(this.responseText);
+                   console.log(response);
+                } else 
+                {
+                    reject(XMLHttpRequest);
+                    alert("erreur");
+                }
+            }
         }
-    }
-request.open("GET", "http://localhost:3000/api/cameras");
-request.send();
-}
+    })
+};
 
+promiseGet()
+    .then(function(response) 
+    {
+        for (let i=0;i<response.length;i++) 
+        {
+            let items=document.querySelector(".js-allArticlesByCategory");
+            items.innerHTML=`<li class="list-cards-item">
+            <img class="card-img-top" src="#">
+            <div class="card-body">
+                <h3 class="card-title">Nom de la caméra</h3>
+                <p class="card-text">Prix </br>
+                Description
+                <div class="card-button">
+                <a class="btn" href="#" aria-label="Sélectionner l’appareil photo XXX
+              }">Sélectionner</a>
+              </div>
+            </div>
+            `;
+            console.log(response[0].imageUrl)
+        }
+    })
 
+    .catch(function (error)
+    {
 
-// Envoi des données à API
-
-// const postRequest =function ()
-// {
-//     const request= new XMLHttpRequest();
-//     request.onreadystatechange = function() 
-//     {
-//         if (this.readyState == XMLHttpRequest.DONE && this.status == 200) 
-//         {
-//         var response = JSON.parse(this.responseText);
-//         console.log(response);
-//         } else 
-//         {
-//         alert("Un problème est survenu");
-//         }
-//     }
-// request.open("POST", "http://localhost:3000/api/cameras");
-// request.setRequestHeader("Content-Type", "application/json");
-// // request.send(JSON.stringify(jsonBody));
-// request.send();
-
-// };
-
-// export {getRequest};
-// export {postRequest};
+    })
