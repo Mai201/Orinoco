@@ -1,30 +1,30 @@
-// // Récupération de données API
+// Récupération de données API (tableau GET/)
 
-// function promiseGet() 
-// {
-//     return new Promise((resolve, reject)=> 
-//     {
-//         const request= new XMLHttpRequest();
-//         request.open("GET", "http://localhost:3000/api/cameras");
-//         request.send();
-//         request.onreadystatechange = function() 
-//         {
-//             if (this.readyState === XMLHttpRequest.DONE) 
-//             {
-//                 if (this.status ===200)
-//                 {
-//                    resolve(JSON.parse(this.responseText)) 
-//                    var response = JSON.parse(this.responseText);
-//                    console.log(response);
-//                 } else 
-//                 {
-//                     reject(XMLHttpRequest);
-//                     alert("erreur GET");
-//                 }
-//             }
-//         }
-//     })
-// };
+function promiseGet() 
+{
+    return new Promise((resolve, reject)=> 
+    {
+        const request= new XMLHttpRequest();
+        request.open("GET", "http://localhost:3000/api/cameras");
+        request.send();
+        request.onreadystatechange = function() 
+        {
+            if (this.readyState === XMLHttpRequest.DONE) 
+            {
+                if (this.status ===200)
+                {
+                   resolve(JSON.parse(this.responseText)) 
+                   var response = JSON.parse(this.responseText);
+                   console.log(response);
+                } else 
+                {
+                    reject(XMLHttpRequest);
+                    alert("erreur GET");
+                }
+            }
+        }
+    })
+};
 
 // Affectation des données sur page d'accueil
 
