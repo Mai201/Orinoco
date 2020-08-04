@@ -19,7 +19,7 @@ function promiseGet()
                 } else 
                 {
                     reject(XMLHttpRequest);
-                    alert("erreur");
+                    alert("erreur GET");
                 }
             }
         }
@@ -34,23 +34,23 @@ promiseGet()
         for (let i=0;i<response.length;i++) 
         {
             let items=document.querySelector(".js-allArticlesByCategory");
-            items.innerHTML=`
+            items.innerHTML+=`
             <li class="list-cards-item">
-                <img class="card-img-top" src="#">
+                <img class="card-img-top" src="${response[i].imageUrl}">
                 <div class="card-body">
-                    <h3 class="card-title">Nom de la caméra</h3>
-                    <p class="card-text">Prix </br>
-                    Description</p>
+                    <h3 class="card-title">Appareil photo ${response[i].name}</h3>
+                    <p class="card-text">Prix: ${response[i].price/100}€ </br>
+                    Lentilles: ${response[i].lenses.join('  –  ')}</br>
+                    ${response[i].description}</p>
                     <div class="card-button">
-                        <a class="btn" href="p-produit.html" aria-label="Sélectionner l’appareil photo XXX">Sélectionner</a>
+                        <a class="btn btn-primary" href="p-produit.html" aria-label="Sélectionner l’appareil photo">Sélectionner le modèle ${response[i].name}</a>
                     </div>
                 </div>
             </li>`;
-            // console.log(response[i].imageUrl)
         }
     })
 
     .catch(function (error)
     {
-        alert("erreur réponse");
+        alert("erreur affectation réponse");
     })
