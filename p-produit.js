@@ -57,9 +57,9 @@ promiseGetArticleById()
         <div class="card-body">
             <h3 class="card-title">Appareil photo ${response.name}</h3>
             <p class="card-text">Prix: ${response.price/100}€ </br>
-            Lentilles: ${response.lenses.join('  –  ')}</br>
-            ${response.description}</br>
-            Personnaliser </p>
+            Lentilles disponibles: ${response.lenses.join('  –  ')}</br></br>
+            Description: ${response.description}</br></br>
+            Choix de la lentille: (menu déroulant pour choix)</p>
             <div class="card-button">
                <a class="btn btn-primary" href="panier.html" aria-label="Ajouter dans le panier">Ajouter dans le panier</a>
             </div>
