@@ -1,30 +1,30 @@
-// Récupération de données API
+// // Récupération de données API
 
-function promiseGet() 
-{
-    return new Promise((resolve, reject)=> 
-    {
-        const request= new XMLHttpRequest();
-        request.open("GET", "http://localhost:3000/api/cameras");
-        request.send();
-        request.onreadystatechange = function() 
-        {
-            if (this.readyState === XMLHttpRequest.DONE) 
-            {
-                if (this.status ===200)
-                {
-                   resolve(JSON.parse(this.responseText)) 
-                   var response = JSON.parse(this.responseText);
-                   console.log(response);
-                } else 
-                {
-                    reject(XMLHttpRequest);
-                    alert("erreur GET");
-                }
-            }
-        }
-    })
-};
+// function promiseGet() 
+// {
+//     return new Promise((resolve, reject)=> 
+//     {
+//         const request= new XMLHttpRequest();
+//         request.open("GET", "http://localhost:3000/api/cameras");
+//         request.send();
+//         request.onreadystatechange = function() 
+//         {
+//             if (this.readyState === XMLHttpRequest.DONE) 
+//             {
+//                 if (this.status ===200)
+//                 {
+//                    resolve(JSON.parse(this.responseText)) 
+//                    var response = JSON.parse(this.responseText);
+//                    console.log(response);
+//                 } else 
+//                 {
+//                     reject(XMLHttpRequest);
+//                     alert("erreur GET");
+//                 }
+//             }
+//         }
+//     })
+// };
 
 // Affectation des données sur page d'accueil
 
@@ -43,7 +43,7 @@ promiseGet()
                     Lentilles: ${response[i].lenses.join('  –  ')}</br>
                     ${response[i].description}</p>
                     <div class="card-button">
-                        <a class="btn btn-primary" href="p-produit.html" aria-label="Sélectionner l’appareil photo">Sélectionner le modèle ${response[i].name}</a>
+                        <a class="btn btn-primary" href="p-produit.html?id=${response[i]._id}" aria-label="Sélectionner l’appareil photo">Sélectionner le modèle ${response[i].name}</a>
                     </div>
                 </div>
             </li>`;
