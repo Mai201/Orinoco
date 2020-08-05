@@ -88,3 +88,9 @@ promiseGetArticleById()
 {
     alert("erreur affectation réponse");
 })
+
+
+// Reste à faire: 
+// menu déroulant pour choix des lentilles
+// choix de la quantité d'appareils photos commandés
+// bouton pour ajouter dans le panier = sessionStorage pour envoyer dans panier
