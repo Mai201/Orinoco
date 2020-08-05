@@ -1,7 +1,17 @@
 // Récupération de l'ID pour caméras
-const a= window.location.search
-const b= new URLSearchParams(a)
-const ID_URL=b.get('id')
+// Pour mémoire: 
+// new URL(location.href).searchParams.get('year')
+// Returns 2008 for href = "http://localhost/search.php?year=2008".
+//  Or in two steps:
+// const params = new URL(location.href).searchParams;
+// const year = params.get('year');
+
+// pour chercher la partie de l'URL qui suit le symbole "?"
+const idUrl= window.location.search
+// Pour paramétrer objet URLSearchParams
+const idCameras= new URLSearchParams(idUrl)
+// pour retourner valeur associée au paramètre donné
+const ID_URL=idCameras.get('id')
 
 const categories=
 {
@@ -17,12 +27,13 @@ const API_URL=
     _DIR:"api/",
     _CATEGORY: categories.cat1,
     _ID:ID_URL,
-    // _ORDER:"order"
+    // _ORDER:"order" => à faire ensuite pour request "POST"
 }
 
 const GET_URL=`${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ID}`
 
-// promesse pour récupérer les éléments par Id (caméras, ici)
+
+// promesse pour récupérer les éléments par Id (des app photos, ici)
 function promiseGetArticleById() 
 {
     return new Promise((resolve, reject)=> 
