@@ -1,3 +1,4 @@
+// Récupération de l'ID pour caméras
 const a= window.location.search
 const b= new URLSearchParams(a)
 const ID_URL=b.get('id')
@@ -9,6 +10,7 @@ const categories=
     cat3:'furniture'
 }
 
+// création API_URL et GET_URL pour automatiser et préparer mise en place de POST/order 
 const API_URL=
 {
     _HOST:"http://localhost:3000/",
@@ -20,6 +22,7 @@ const API_URL=
 
 const GET_URL=`${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ID}`
 
+// promesse pour récupérer les éléments par Id (caméras, ici)
 function promiseGetArticleById() 
 {
     return new Promise((resolve, reject)=> 
@@ -45,6 +48,8 @@ function promiseGetArticleById()
         }
     })
 };
+
+// Affectation des données sur page produit
 
 promiseGetArticleById()
 .then(function(response)
