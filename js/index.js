@@ -18,7 +18,7 @@ promiseGet()
                 <div class="card-body">
                     <h3 class="card-title">Appareil photo ${response[i].name}</h3>
                     <p class="card-text">Prix: ${response[i].price/100}€ </br>
-                    Lentilles disponibles: ${response[i].lenses.join('  –  ')}</br></br>
+                    Lentilles disponibles:</br> ${response[i].lenses.join('</br>')}</br></br>
                     Description du produit: ${response[i].description}</p>
                     <div class="card-button">
                         <a class="btn btn-primary" href="p-produit.html?id=${response[i]._id}" aria-label="Sélectionner l’appareil photo">Sélectionner le modèle ${response[i].name}</a>
