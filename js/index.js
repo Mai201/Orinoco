@@ -1,32 +1,8 @@
-// Récupération de données API (tableau GET/)
-// faire un fichier JS pour éviter répétition => requete http mettre objet à la place
-//html : dans fichier html
+// Récupération de données API (tableau GET/ faite dans request.js)
+var GET_choice = API_URL._HOST + API_URL._DIR + API_URL._CATEGORY
 
-function promiseGet() 
-{
-    return new Promise((resolve, reject)=> 
-    {
-        const request= new XMLHttpRequest();
-        request.open("GET", "http://localhost:3000/api/cameras");
-        request.send();
-        request.onreadystatechange = function() 
-        {
-            if (this.readyState === XMLHttpRequest.DONE) 
-            {
-                if (this.status ===200)
-                {
-                   resolve(JSON.parse(this.responseText)) 
-                   var response = JSON.parse(this.responseText);
-                   console.log(response);
-                } else 
-                {
-                    reject(XMLHttpRequest);
-                    alert("erreur GET");
-                }
-            }
-        }
-    })
-};
+
+//html : dans fichier html
 
 // Affectation des données sur page d'accueil
 
