@@ -1,5 +1,6 @@
 // récupérer item avec sessionStorage
 // à gauche: afficher les items (par Id) avec localStorage du panier
+// prendre depuis 1 seule variable
 
 // à droite: afficher prix total
 // faire formulaire de contact 

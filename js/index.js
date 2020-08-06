@@ -1,4 +1,6 @@
 // Récupération de données API (tableau GET/)
+// faire un fichier JS pour éviter répétition => requete http mettre objet à la place
+//html : dans fichier html
 
 function promiseGet() 
 {
