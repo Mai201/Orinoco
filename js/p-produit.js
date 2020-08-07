@@ -27,25 +27,38 @@ promiseGet()
     const divDropdown=document.createElement("div");
     divDropdown.classList.add("dropdown");
     const buttonLenses=document.createElement("button");
-    buttonLenses.classList.add("btn","btn-secondary","dropdown-toggle")
+    buttonLenses.classList.add("btn","btn-info","dropdown-toggle")
     buttonLenses.type="button";
     buttonLenses.setAttribute("data-toggle", "dropdown");
     const divButton=document.createElement("div");
     divButton.classList.add("card-button")
     const lensesChoice=document.createElement("div");
     lensesChoice.classList.add("dropdown-menu");
-    const lienPanier=document.createElement("a");
-    lienPanier.classList.add("btn", "btn-primary")
-    lienPanier.href="panier.html";
+    const ajoutPanier=document.createElement("a");
+    ajoutPanier.classList.add("btn", "btn-primary", "btn-top","col-4");
+    ajoutPanier.href="#";
+    const supprPanier=document.createElement("a");
+    supprPanier.classList.add("btn", "btn-danger", "btn-top","col-4");
+    supprPanier.href="#";
+    const quantitePanier=document.createElement("a");
+    quantitePanier.classList.add("btn","btn-outline-info", "btn-top","col-4")
+    quantitePanier.href="#";
+    const validPanier=document.createElement("a");
+    validPanier.classList.add("btn", "btn-success", "btn-top", "offset-8","col-4")
+    validPanier.href="#";
     items.appendChild(liCamera).appendChild(imageCamera)
     items.appendChild(liCamera).appendChild(divBody).appendChild(nameCamera).innerHTML="Appareil photo "+response["name"];
     items.appendChild(liCamera).appendChild(divBody).appendChild(priceCamera).innerHTML="Prix: "+response["price"]/100+"€";
     items.appendChild(liCamera).appendChild(divBody).appendChild(descriptionCamera).innerHTML="Description du produit: " +response["description"];
-    items.appendChild(liCamera).appendChild(divBody).appendChild(divDropdown).appendChild(buttonLenses).innerHTML+="Choix de la lentille: ";
+    items.appendChild(liCamera).appendChild(divBody).appendChild(divDropdown).appendChild(buttonLenses).innerHTML+="Lentilles disponibles: ";
     items.appendChild(liCamera).appendChild(divBody).appendChild(divDropdown).appendChild(lensesChoice);
-    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(lienPanier).innerHTML="Ajouter dans le panier";
+    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(ajoutPanier).innerHTML="Ajouter dans panier";
+    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(supprPanier).innerHTML="Supprimer du panier";
+    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(quantitePanier).innerHTML="Quantité: ";
+    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(validPanier).innerHTML="Valider le panier";
 
-    // menu déroulant pour choix des lentilles
+
+    // simple menu déroulant pour liste des lentilles disponibles
     try
         {
             for (let j = 0; j < response.lenses.length; j++) 
@@ -69,9 +82,6 @@ promiseGet()
 
 
 // Reste à faire: 
-// choix de la quantité d'appareils photos commandés
-
-
 
 // bouton pour ajouter dans le panier = sessionStorage pour envoyer dans panier
 // enregistrer dans variable du json (stringify)
