@@ -5,37 +5,45 @@ var GET_choice=`${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._I
 
 promiseGet()
 
-// .then(function(response)
-// {
-//     for (let j = 0; j < response.lenses.length; j ++) {
-//         let option=document.querySelector(".dropdown-item");
-//         option.innerHTML+=`lentilles: ${response.lenses[j]}`
-//       }
-// })
-
 .then(function(response)
 {
     console.log(`response GetArticleById():${response}`)
     let items=document.querySelector(".js-chosen-article");
-    items.innerHTML=`
-    <li class="list-cards-item">
-    <img class="card-img-top" src="${response.imageUrl}">
-    <div class="card-body">
-        <h3 class="card-title">Appareil photo ${response.name}</h3>
-        <p class="card-text">Prix: ${response.price/100}€ </br></br>
-        Description: ${response.description}</br></br></p>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-            Choix de la lentille:
-            </button>
-            <div class="dropdown-menu">
-            </div>
-        </div></br>
-        <div class="card-button">
-            <a class="btn btn-primary" href="panier.html" aria-label="Ajouter dans le panier">Ajouter dans le panier</a>
-        </div>
-    </div>
-    </li>`
+    const liCamera=document.createElement("li");
+    liCamera.classList.add("list-cards-item");
+    const imageCamera=document.createElement("img");
+    imageCamera.classList.add("card-img-top");
+    imageCamera.src=response["imageUrl"];
+    const divBody=document.createElement("div");
+    divBody.classList.add("card-body");
+    const nameCamera=document.createElement("h3");
+    nameCamera.classList.add("card-title");
+    const priceCamera=document.createElement("p");
+    priceCamera.classList.add("card-text");
+    const optionCamera=document.createElement("p");
+    optionCamera.classList.add("card-text");
+    const descriptionCamera=document.createElement("p");
+    descriptionCamera.classList.add("card-text");
+    const divDropdown=document.createElement("div");
+    divDropdown.classList.add("dropdown");
+    const buttonLenses=document.createElement("button");
+    buttonLenses.classList.add("btn","btn-secondary","dropdown-toggle")
+    buttonLenses.type="button";
+    buttonLenses.setAttribute("data-toggle", "dropdown");
+    const divButton=document.createElement("div");
+    divButton.classList.add("card-button")
+    const lensesChoice=document.createElement("div");
+    lensesChoice.classList.add("dropdown-menu");
+    const lienPanier=document.createElement("a");
+    lienPanier.classList.add("btn", "btn-primary")
+    lienPanier.href="panier.html";
+    items.appendChild(liCamera).appendChild(imageCamera)
+    items.appendChild(liCamera).appendChild(divBody).appendChild(nameCamera).innerHTML="Appareil photo "+response["name"];
+    items.appendChild(liCamera).appendChild(divBody).appendChild(priceCamera).innerHTML="Prix: "+response["price"]/100+"€";
+    items.appendChild(liCamera).appendChild(divBody).appendChild(descriptionCamera).innerHTML="Description du produit: " +response["description"];
+    items.appendChild(liCamera).appendChild(divBody).appendChild(divDropdown).appendChild(buttonLenses).innerHTML+="Choix de la lentille: ";
+    items.appendChild(liCamera).appendChild(divBody).appendChild(divDropdown).appendChild(lensesChoice);
+    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(lienPanier).innerHTML="Ajouter dans le panier";
 
     // menu déroulant pour choix des lentilles
     try
