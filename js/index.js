@@ -2,8 +2,6 @@
 var GET_choice = API_URL._HOST + API_URL._DIR + API_URL._CATEGORY
 
 
-//html : dans fichier html
-
 // Affectation des données sur page d'accueil
 
 promiseGet()
@@ -12,19 +10,32 @@ promiseGet()
         for (let i=0;i<response.length;i++) 
         {
             let items=document.querySelector(".js-allArticlesByCategory");
-            items.innerHTML+=`
-            <li class="list-cards-item">
-                <img class="card-img-top" src="${response[i].imageUrl}">
-                <div class="card-body">
-                    <h3 class="card-title">Appareil photo ${response[i].name}</h3>
-                    <p class="card-text">Prix: ${response[i].price/100}€ </br>
-                    Lentilles disponibles:</br> ${response[i].lenses.join('</br>')}</br></br>
-                    Description du produit: ${response[i].description}</p>
-                    <div class="card-button">
-                        <a class="btn btn-primary" href="p-produit.html?id=${response[i]._id}" aria-label="Sélectionner l’appareil photo">Sélectionner le modèle ${response[i].name}</a>
-                    </div>
-                </div>
-            </li>`;
+            const divLi=document.createElement("li");
+            divLi.classList.add("list-cards-item");
+            const divImage=document.createElement("img");
+            divImage.classList.add("card-img-top");
+            divImage.src=response[i]["imageUrl"];
+            const divBody=document.createElement("div");
+            divBody.classList.add("card-body");
+            const nameCamera=document.createElement("h3");
+            nameCamera.classList.add("card-title");
+            const priceCamera=document.createElement("p");
+            priceCamera.classList.add("card-text");
+            const optionCamera=document.createElement("p");
+            optionCamera.classList.add("card-text");
+            const descriptionCamera=document.createElement("p");
+            descriptionCamera.classList.add("card-text");
+            const divButton=document.createElement("div");
+            divButton.classList.add("card-button")
+            const lienCamera=document.createElement("a");
+            lienCamera.classList.add("btn", "btn-primary")
+            let idLien= response[i]["_id"]
+            lienCamera.href="p-produit.html?id="+idLien;
+            items.appendChild(divLi).appendChild(divImage)
+            items.appendChild(divLi).appendChild(divBody).appendChild(nameCamera).innerHTML="Appareil photo "+response[i]["name"];
+            items.appendChild(divLi).appendChild(divBody).appendChild(priceCamera).innerHTML="Prix: "+response[i]["price"]/100+"€";
+            items.appendChild(divLi).appendChild(divBody).appendChild(descriptionCamera).innerHTML="Description du produit: " +response[i]["description"];
+            items.appendChild(divLi).appendChild(divBody).appendChild(divButton).appendChild(lienCamera).innerHTML="Sélectionner le modèle "+response[i]["name"];
         }
     })
 
