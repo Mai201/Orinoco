@@ -10,11 +10,11 @@ promiseGet()
         for (let i=0;i<response.length;i++) 
         {
             let items=document.querySelector(".js-allArticlesByCategory");
-            const divLi=document.createElement("li");
-            divLi.classList.add("list-cards-item");
-            const divImage=document.createElement("img");
-            divImage.classList.add("card-img-top");
-            divImage.src=response[i]["imageUrl"];
+            const liCamera=document.createElement("li");
+            liCamera.classList.add("list-cards-item");
+            const imageCamera=document.createElement("img");
+            imageCamera.classList.add("card-img-top");
+            imageCamera.src=response[i]["imageUrl"];
             const divBody=document.createElement("div");
             divBody.classList.add("card-body");
             const nameCamera=document.createElement("h3");
@@ -31,11 +31,11 @@ promiseGet()
             lienCamera.classList.add("btn", "btn-primary")
             let idLien= response[i]["_id"]
             lienCamera.href="p-produit.html?id="+idLien;
-            items.appendChild(divLi).appendChild(divImage)
-            items.appendChild(divLi).appendChild(divBody).appendChild(nameCamera).innerHTML="Appareil photo "+response[i]["name"];
-            items.appendChild(divLi).appendChild(divBody).appendChild(priceCamera).innerHTML="Prix: "+response[i]["price"]/100+"€";
-            items.appendChild(divLi).appendChild(divBody).appendChild(descriptionCamera).innerHTML="Description du produit: " +response[i]["description"];
-            items.appendChild(divLi).appendChild(divBody).appendChild(divButton).appendChild(lienCamera).innerHTML="Sélectionner le modèle "+response[i]["name"];
+            items.appendChild(liCamera).appendChild(imageCamera)
+            items.appendChild(liCamera).appendChild(divBody).appendChild(nameCamera).innerHTML="Appareil photo "+response[i]["name"];
+            items.appendChild(liCamera).appendChild(divBody).appendChild(priceCamera).innerHTML="Prix: "+response[i]["price"]/100+"€";
+            items.appendChild(liCamera).appendChild(divBody).appendChild(descriptionCamera).innerHTML="Description du produit: " +response[i]["description"];
+            items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(lienCamera).innerHTML="Sélectionner le modèle "+response[i]["name"];
         }
     })
 
