@@ -27,7 +27,7 @@ function promiseGet()
     })
 };
 
-// Récupération de l'ID pour caméras
+// Récupération de l'ID pour caméras (GET/_ID)
 // Pour mémoire: 
 // new URL(location.href).searchParams.get('year')
 // Returns 2008 for href = "http://localhost/search.php?year=2008".
@@ -70,4 +70,61 @@ const API_URL=
     _ORDER:"order"
 }
 
-// const ORDER_ID=Math.round(Math.random())
+const ORDER_ID = Math.round(Math.random() * 9654782366987)
+
+// Envoi données POST/_ORDER
+
+//   function promisePost() 
+//   {
+//       return new Promise((resolve, reject)=> 
+//       {
+//           const request= new XMLHttpRequest();
+//           request.open("POST", GET_choice);
+//           request.setRequestHeader('Content-Type', 'application/json')
+//           request.send("order");
+//           request.onreadystatechange = function() 
+//           {
+//               if (this.readyState === XMLHttpRequest.DONE) 
+//               {
+//                 if (this.status ===200)
+//                 {
+//                     resolve(JSON.parse(this.responseText)) 
+//                 } else 
+//                 {
+//                     reject(XMLHttpRequest);
+//                     alert("erreur POST");
+//                 }
+//               }
+//           }
+//       })
+//   };
+
+
+
+// // config pour panier sur la page p-produit.html avec local storage et confirm panier
+
+// // userbasket à initialiser
+
+// if (window.localStorage.getItem('userBasket')) 
+// {
+//     // console.log('User basket init and available in local browser storage')
+// } else 
+// {
+//     const userBasketInit = []
+//     window.localStorage.setItem('userBasket', JSON.stringify(userBasketInit))
+// }
+  
+// // confirmer le panier
+
+// if (window.localStorage.getItem('confirmShoppingCart')) 
+// {
+//     // console.log('Confirm shopping cart and available in local browser storage')
+// } else 
+// {
+//     const confirmShoppingCartInit = []
+//     window.localStorage.setItem('confirmShoppingCart', JSON.stringify(confirmShoppingCartInit))
+// }
+  
+// // config du local storage pour envoyer dans panier
+//   const userBasket = JSON.parse(window.localStorage.getItem('userBasket'))
+//   const confirmShoppingCart = JSON.parse(window.localStorage.getItem('confirmShoppingCart'))

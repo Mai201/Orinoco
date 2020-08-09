@@ -7,7 +7,7 @@ promiseGet()
 
 .then(function(response)
 {
-    console.log(`response GetArticleById():${response}`)
+    // console.log(`response GetArticleById():${response}`)
     let items=document.querySelector(".js-chosen-article");
     const liCamera=document.createElement("li");
     liCamera.classList.add("list-cards-item");
@@ -34,28 +34,14 @@ promiseGet()
     divButton.classList.add("card-button")
     const lensesChoice=document.createElement("div");
     lensesChoice.classList.add("dropdown-menu");
-    const ajoutPanier=document.createElement("a");
-    ajoutPanier.classList.add("btn", "btn-primary", "btn-top","col-4");
-    ajoutPanier.href="#";
-    const supprPanier=document.createElement("a");
-    supprPanier.classList.add("btn", "btn-danger", "btn-top","col-4");
-    supprPanier.href="#";
-    const quantitePanier=document.createElement("a");
-    quantitePanier.classList.add("btn","btn-outline-info", "btn-top","col-4")
-    quantitePanier.href="#";
-    const validPanier=document.createElement("a");
-    validPanier.classList.add("btn", "btn-success", "btn-top", "offset-8","col-4")
-    validPanier.href="#";
+    
     items.appendChild(liCamera).appendChild(imageCamera)
     items.appendChild(liCamera).appendChild(divBody).appendChild(nameCamera).innerHTML="Appareil photo "+response["name"];
     items.appendChild(liCamera).appendChild(divBody).appendChild(priceCamera).innerHTML="Prix: "+response["price"]/100+"€";
     items.appendChild(liCamera).appendChild(divBody).appendChild(descriptionCamera).innerHTML="Description du produit: " +response["description"];
     items.appendChild(liCamera).appendChild(divBody).appendChild(divDropdown).appendChild(buttonLenses).innerHTML+="Lentilles disponibles: ";
     items.appendChild(liCamera).appendChild(divBody).appendChild(divDropdown).appendChild(lensesChoice);
-    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(ajoutPanier).innerHTML="Ajouter dans panier";
-    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(supprPanier).innerHTML="Supprimer du panier";
-    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(quantitePanier).innerHTML="Quantité: ";
-    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton).appendChild(validPanier).innerHTML="Valider le panier";
+    items.appendChild(liCamera).appendChild(divBody).appendChild(divButton);
 
 
     // simple menu déroulant pour liste des lentilles disponibles
@@ -65,8 +51,8 @@ promiseGet()
             {
                 let option=document.querySelector(".dropdown-menu");
                 option.value = response.lenses[j];
-                console.log(j);
-                console.log(response.lenses[j]);
+                // console.log(j);
+                // console.log(response.lenses[j]);
                 option.innerHTML+=`<a class="dropdown-item" >lentille: ${response.lenses[j]}</a>`
             }
         } catch (error)
@@ -81,7 +67,120 @@ promiseGet()
 })
 
 
-// Reste à faire: 
+// boutons ajout et supression du panier, et affichage de la quantité
+// config pour panier sur la page p-produit.html avec local storage et confirm panier pour commande
 
-// bouton pour ajouter dans le panier = sessionStorage pour envoyer dans panier
-// enregistrer dans variable du json (stringify)
+// userbasket à initialiser
+
+if (window.localStorage.getItem('userBasket')) 
+{
+    console.log('User basket init and available in local browser storage')
+} else 
+{
+    const userBasketInit = []
+    window.localStorage.setItem('userBasket', JSON.stringify(userBasketInit))
+}
+  
+// confirmer le panier
+
+if (window.localStorage.getItem('confirmShoppingCart')) 
+{
+    console.log('Confirm shopping cart and available in local browser storage')
+} else 
+{
+    const confirmShoppingCartInit = []
+    window.localStorage.setItem('confirmShoppingCart', JSON.stringify(confirmShoppingCartInit))
+}
+  
+// config du local storage pour envoyer dans panier
+  const userBasket = JSON.parse(window.localStorage.getItem('userBasket'))
+  const confirmShoppingCart = JSON.parse(window.localStorage.getItem('confirmShoppingCart'))
+
+promiseGet()
+
+.then(function(response) 
+{
+    console.log(`response GetArticleById():${response}`)
+    let itemsPanier=document.querySelector(".card-button");
+    const ajoutPanier=document.createElement("a");
+    ajoutPanier.classList.add("btn", "btn-primary", "btn-top","col-6", "js-addBasket");
+    ajoutPanier.type="button";
+    ajoutPanier.href="#";
+    const supprPanier=document.createElement("a");
+    supprPanier.classList.add("btn", "btn-danger", "btn-top","offset-1","col-5", "js-deleteBasket", "js-activeButtonDelete");
+    supprPanier.type="reset";
+    supprPanier.href="#";
+    const quantitePanier=document.createElement("a");
+    quantitePanier.classList.add("btn","btn-outline-info", "btn-top","col-6","js-quantityIsActive");
+    const quantiteMessage=document.createElement("span");
+    quantiteMessage.classList.add("js-quantityMessage");
+    const validPanier=document.createElement("a");
+    validPanier.classList.add("btn", "btn-success", "btn-top","offset-1","col-5", "js-validBasket","js-activeButtonValid");
+    validPanier.type="submit";
+    validPanier.href="panier.html";
+
+
+    itemsPanier.appendChild(ajoutPanier).innerHTML="Ajouter dans panier";
+    itemsPanier.appendChild(supprPanier).innerHTML="Supprimer du panier";
+    itemsPanier.appendChild(quantitePanier).innerHTML="Quantité: ";
+    itemsPanier.appendChild(quantitePanier).appendChild(quantiteMessage);
+    itemsPanier.appendChild(validPanier).innerHTML="Valider le panier";
+    
+    try
+        {
+            ajoutPanier.addEventListener('click', (event) => 
+            {
+                event.preventDefault()
+                quantitePanier.style.display = 'inline-block'
+                quantiteMessage.textContent = Number(quantiteMessage.textContent) + 1
+
+                // console.log(quantiteMessage.textContent);
+
+                if (quantiteMessage.textContent <= 1) 
+                {   
+                    userBasket.push([response._id, quantiteMessage.textContent])
+                } else
+                {
+                    userBasket.push([response._id, '1'])
+                }
+                
+                if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
+                {
+                    window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
+                }
+
+                supprPanier.style.display = 'inline-block'
+                validPanier.style.display = 'inline-block'
+
+            })
+        } catch (error)
+        {
+            alert("erreur ajout dans panier");
+        }
+
+
+        try
+        {
+            supprPanier.addEventListener('click', (event) => 
+            {
+                event.preventDefault()
+                quantiteMessage.textContent = Number(quantiteMessage.textContent) - 1
+            
+                // console.log(quantiteMessage.textContent);
+                
+                if (Number(quantiteMessage.textContent) >= 1) 
+                {
+                    userBasket.pop(response)
+                    window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
+                } else 
+                {
+                    supprPanier.style.display = 'none'
+                    quantitePanier.style.display = 'none'
+                    validPanier.style.display = 'none'
+                }
+            })
+        } catch(error) 
+        {
+            alert("erreur suppression dans panier")
+        }   
+})
