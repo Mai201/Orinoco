@@ -40,36 +40,23 @@
                 </div>
             </div>
             <div class="row jumbotron">
-                <div class="col-12 col-lg-6">
-                    <div class="card">
-                        <ul class="list-cards js-chosenBasket">
-                            <!-- contenu généré par javascript ici -->
-                        </ul>
-                        
-                        <!-- <a href="produit1.html">
-                            <img class="card-img-top" src="images/vcam_1.jpg">
-                        </a>
-                        <div class="card-body">
-                        <h5 class="card-title">Détail du panier (ici, produit1)</h5>
-                        <p class="card-text">Prix et Description</p>
-                        </div> -->
-
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                    <div class="card">
-                        <ul class="list-cards js-priceBasket">
-                            <!-- contenu généré par javascript ici -->
-                        </ul>
-                        <!-- <div class="card-body">
-                        <h5 class="card-title">Commander</h5>
-                        <p class="card-text">Prix total de la commande<br>
-                                            <a href="commande.html">
-                                                <button>Commander</button></p> 
-                                            </a>                  
-                        </div> -->
-                    </div>
-                </div>
+            <table class="table">
+                <caption class="table__caption js-priceBasket"></caption>
+                <thead class="table__head">
+                  <tr class="table__head--title">
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Lentille(NC)</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody class="table__body">
+                  <!-- Made dynamic JS -->
+                  <tr class="table__body--content js-chosenBasket"></tr>
+                </tbody>
+                <tfoot></tfoot>
+              </table>
             </div>
         </main>
         <footer class="container">
@@ -86,6 +73,7 @@
         <script src="bootstrap/js/bootstrap.bundle.js"></script>
         <!-- Appel Get API -->
         <script src="js/request.js"></script>
+        <script src="js/config-storage.js"></script>
         <script src="js/panier.js"></script>
     <!-- End Javascript -->
     </body>

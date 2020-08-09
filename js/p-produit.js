@@ -51,8 +51,6 @@ promiseGet()
             {
                 let option=document.querySelector(".dropdown-menu");
                 option.value = response.lenses[j];
-                // console.log(j);
-                // console.log(response.lenses[j]);
                 option.innerHTML+=`<a class="dropdown-item" >lentille: ${response.lenses[j]}</a>`
             }
         } catch (error)
@@ -68,33 +66,7 @@ promiseGet()
 
 
 // boutons ajout et supression du panier, et affichage de la quantité
-// config pour panier sur la page p-produit.html avec local storage et confirm panier pour commande
-
-// userbasket à initialiser
-
-if (window.localStorage.getItem('userBasket')) 
-{
-    console.log('User basket init and available in local browser storage')
-} else 
-{
-    const userBasketInit = []
-    window.localStorage.setItem('userBasket', JSON.stringify(userBasketInit))
-}
-  
-// confirmer le panier
-
-if (window.localStorage.getItem('confirmShoppingCart')) 
-{
-    console.log('Confirm shopping cart and available in local browser storage')
-} else 
-{
-    const confirmShoppingCartInit = []
-    window.localStorage.setItem('confirmShoppingCart', JSON.stringify(confirmShoppingCartInit))
-}
-  
-// config du local storage pour envoyer dans panier
-  const userBasket = JSON.parse(window.localStorage.getItem('userBasket'))
-  const confirmShoppingCart = JSON.parse(window.localStorage.getItem('confirmShoppingCart'))
+// pour mémoire: config avec local storage faite dans config-storage.js
 
 promiseGet()
 
@@ -134,14 +106,13 @@ promiseGet()
                 quantitePanier.style.display = 'inline-block'
                 quantiteMessage.textContent = Number(quantiteMessage.textContent) + 1
 
-                // console.log(quantiteMessage.textContent);
-
                 if (quantiteMessage.textContent <= 1) 
                 {   
                     userBasket.push([response._id, quantiteMessage.textContent])
                 } else
                 {
                     userBasket.push([response._id, '1'])
+                    console.log(userBasket);
                 }
                 
                 if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
