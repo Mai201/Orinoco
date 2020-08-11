@@ -50,14 +50,14 @@ const categories=
 }
 
 
-// création de l'objet users
-const USERS = {
-    firstName: 'Pierre',
-    lastName: 'Dupont',
-    address: 'Place Tabareau',
-    city: 'Lyon',
-    email: 'pierre-dupont@gmail.com'
-  }
+// // création de l'objet users
+// const USERS = {
+//     firstName: 'Pierre',
+//     lastName: 'Dupont',
+//     address: 'Place Tabareau',
+//     city: 'Lyon',
+//     email: 'pierre-dupont@gmail.com'
+//   }
 
 
 // création API_URL pour pouvoir éviter répétition des requetes HTTP, car composant de GET_choice
@@ -74,27 +74,28 @@ const ORDER_ID = Math.round(Math.random() * 9654782366987)
 
 // Envoi données POST/_ORDER
 
-//   function promisePost() 
-//   {
-//       return new Promise((resolve, reject)=> 
-//       {
-//           const request= new XMLHttpRequest();
-//           request.open("POST", GET_choice);
-//           request.setRequestHeader('Content-Type', 'application/json')
-//           request.send("order");
-//           request.onreadystatechange = function() 
-//           {
-//               if (this.readyState === XMLHttpRequest.DONE) 
-//               {
-//                 if (this.status ===200)
-//                 {
-//                     resolve(JSON.parse(this.responseText)) 
-//                 } else 
-//                 {
-//                     reject(XMLHttpRequest);
-//                     alert("erreur POST");
-//                 }
-//               }
-//           }
-//       })
-//   };
+  function promisePost() 
+  {
+      return new Promise((resolve, reject)=> 
+      {
+          const request= new XMLHttpRequest();
+          request.open("POST", GET_choice);
+          request.setRequestHeader('Content-Type', 'application/json')
+          
+          request.send(order);
+          request.onreadystatechange = function() 
+          {
+              if (this.readyState === XMLHttpRequest.DONE) 
+              {
+                if (this.status ===200)
+                {
+                    resolve(JSON.parse(this.responseText)) 
+                } else 
+                {
+                    reject(XMLHttpRequest);
+                    alert("erreur POST");
+                }
+              }
+          }
+      })
+  };
