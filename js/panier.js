@@ -83,6 +83,7 @@ if (userBasket.length>=1)
           city:addressCity.value,
           email:email.value,
         }
+        // à corriger: valeurs ne sont pas affectées dans contact !
 
   submitForm.addEventListener('click', event => 
   {
@@ -91,7 +92,6 @@ if (userBasket.length>=1)
     alert("Votre commande a bien été prise en compte! Merci de patienter")
           
     confirmShoppingCart.push([ORDER_ID, contact, userBasket])
-    // userBasket.clear();
 
     if (window.localStorage.getItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart)) !== null) 
     {
@@ -108,9 +108,10 @@ if (userBasket.length>=1)
     }, 2000)
   })
 
-  var order= JSON.stringify(confirmShoppingCart);
+  var order = userBasket[userBasket.length - 1]
+  // var order= JSON.stringify(userBasket);
   // enlever le nombre d'éléments pour transmettre seulement l'ID ? 
-  console.log(order);
+  console.log(userBasket);
     
   const createOrder = () => 
   {

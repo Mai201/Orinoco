@@ -18,7 +18,7 @@ promiseGet()
     {
         console.log(confirmShoppingCart)
         orderDescription.appendChild(infoConfirm).innerHTML="Votre commande a bien été validée";
-        orderDescription.appendChild(infoCommande).innerHTML="Encore merci pour votre commande n° <strong>"+confirmShoppingCart[0][0]+"</strong> </br> d'un montant total de : <strong></strong>"
+        orderDescription.appendChild(infoCommande).innerHTML="Mme/M."+confirmShoppingCart[0][1].firstName+confirmShoppingCart[0][1].lastName+", voici votre numéro de commande: <strong>"+confirmShoppingCart[0][0]+"</strong> </br> d'un montant total de : <strong></strong>"
     } else 
     {
         orderDescription.innerHtml +=
@@ -38,5 +38,5 @@ promiseGet()
 
 .catch(function(ex) 
 {
-    console.log(`Page error orderPlacedJS : ${JSON.stringify(ex)}`)
+    console.log(`erreur de données de confirmation : ${JSON.stringify(ex)}`)
 })
