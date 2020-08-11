@@ -88,7 +88,7 @@ if (userBasket.length>=1)
   {
     event.preventDefault()
 
-    alert("votre commande a bien été prise en compte")
+    alert("Votre commande a bien été prise en compte! Merci de patienter")
           
     confirmShoppingCart.push([ORDER_ID, contact, userBasket])
     // userBasket.clear();
@@ -126,4 +126,7 @@ if (userBasket.length>=1)
       console.error(`erreur requete post : ${JSON.stringify(ex)}`)
     })
   }
+} else 
+{
+  alert("panier vide, commande impossible");
 }

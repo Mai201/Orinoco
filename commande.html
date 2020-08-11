@@ -39,15 +39,12 @@
                     </h1>
                 </div>
             </div>
-            <div class="row jumbotron">
-                <div class="col-12 col-lg-6">
-                    <div class="card">
-                        <p>Prix total de votre commande<br>
-                            Numéro de votre commande
-                        </p>
-                    </div>
-                </div>
+            <div class="jumbotron js-orderDescription">
+                        <!-- Javascript -->
             </div>
+            <div class="row justify-content-center">
+                <button class="btn btn-primary js-backHome col-8" type="button">Retour à la page d'accueil</button>
+            </div>  
         </main>
         <footer class="container">
             <div class="row jumbotron">
@@ -62,7 +59,9 @@
         <!-- Mise en place popper.js et bootstrap JS -->
         <script src="bootstrap/js/bootstrap.bundle.js"></script>
         <!-- Appel Get API -->
-        <script src=""></script>
+        <script src="js/request.js"></script>
+        <script src="js/config-storage.js"></script>
+        <script src="js/commande.js"></script>
     <!-- End Javascript -->
     </body>
 </html>
