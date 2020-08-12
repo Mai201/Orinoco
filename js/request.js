@@ -70,9 +70,10 @@ const API_URL=
     _ORDER:"order"
 }
 
-const ORDER_ID = Math.round(Math.random() * 9654782366987)
+// ne pas générer sur chaque page, mais sur celle du panier au moment de la commande:
+//const ORDER_ID = Math.round(Math.random() * 123456789)
 
-// Envoi données POST/_ORDER
+// Envoi données POST/ORDER
 
   function promisePost() 
   {

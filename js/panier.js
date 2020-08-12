@@ -85,6 +85,8 @@ if (userBasket.length>=1)
         }
         // à corriger: valeurs ne sont pas affectées dans contact !
 
+  const ORDER_ID = Math.round(Math.random() * 123456789)
+
   submitForm.addEventListener('click', event => 
   {
     event.preventDefault()
@@ -109,8 +111,7 @@ if (userBasket.length>=1)
   })
 
   var order = userBasket[userBasket.length - 1]
-  // var order= JSON.stringify(userBasket);
-  // enlever le nombre d'éléments pour transmettre seulement l'ID ? 
+  // enlever le nombre d'éléments (en 2eme position) pour transmettre seulement l'ID ? 
   console.log(userBasket);
     
   const createOrder = () => 
