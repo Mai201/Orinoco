@@ -6,27 +6,31 @@ var GET_choice = API_URL._HOST + API_URL._DIR + API_URL._CATEGORY
 promiseGet()
 .then(function(response)
 {
-    const chosenItems=document.querySelector(".js-chosenBasket");
-    const totalContent=document.querySelector(".js-priceBasket");
-    let totalPay = 0
+  const totalContent=document.querySelector(".js-priceBasket");
+  let totalPay = 0
 
-    for (let e = 0; e < response.length; e ++) 
+  for (let e = 0; e < response.length; e ++) 
+  {
+    for (let f = 0; f < userBasket.length; f ++) 
     {
-        for (let f = 0; f < userBasket.length; f ++) 
-        {
-            if (userBasket[f][0] === response[e]._id) 
-            {
-                chosenItems.innerHTML += `
-                <td>${response[e].name} </td>
-                <td>${response[e].price / 100} € </td>
-                <td>${userBasket[f][2]}(NC) </td>
-                <td>${userBasket[f][1]} </td>
-                <td>${(response[e].price / 100) * userBasket[f][1]}€ </td>`
+      const chosenItems=document.querySelector(".js-chosenBasket");
+      const dataItems=document.createElement("tr");
+      const dataTd1=document.createElement("td");
+      const dataTd2=document.createElement("td");
+      const dataTd3=document.createElement("td");
+      const dataTd4=document.createElement("td");
+
+      if (userBasket[f][0] === response[e]._id) 
+      {
+        chosenItems.appendChild(dataItems).appendChild(dataTd1).innerHTML += response[e]["name"];
+        chosenItems.appendChild(dataItems).appendChild(dataTd2).innerHTML += response[e]["price"] / 100 +"€";
+        chosenItems.appendChild(dataItems).appendChild(dataTd3).innerHTML += userBasket[f][2]+"(NC)";
+        chosenItems.appendChild(dataItems).appendChild(dataTd4).innerHTML += userBasket[f][1];
                     
-                totalPay += (response[e].price / 100) * userBasket[f][1]
-            }
-        }
+        totalPay += (response[e].price / 100) * userBasket[f][1]
+      }
     }
+  }
 
     if (totalPay >= 1) 
     {
@@ -75,25 +79,22 @@ if (userBasket.length>=1)
   const addressCity = document.querySelector('.js-addressCity')
   const submitForm = document.querySelector('.js-submitForm')
 
-  let contact= 
-        {
-          firstName:givenName.value,
-          lastName: familyName.value,
-          address: address.value,
-          city:addressCity.value,
-          email:email.value,
-        }
-        // à corriger: valeurs ne sont pas affectées dans contact !
-
-  const ORDER_ID = Math.round(Math.random() * 123456789)
-
   submitForm.addEventListener('click', event => 
   {
     event.preventDefault()
 
+    let contact= 
+    {
+      firstName:givenName.value,
+      lastName: familyName.value,
+      address: address.value,
+      city:addressCity.value,
+      email:email.value,
+    }
+    
     alert("Votre commande a bien été prise en compte! Merci de patienter")
-          
-    confirmShoppingCart.push([ORDER_ID, contact, userBasket])
+
+    confirmShoppingCart.push(contact, [userBasket])
 
     if (window.localStorage.getItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart)) !== null) 
     {
@@ -108,12 +109,19 @@ if (userBasket.length>=1)
     {
     window.location = 'commande.html'
     }, 2000)
+
+    var order = confirmShoppingCart;
+    // doublon donc enlever 1 pour transmettre 1 seule fois la requete 
+    console.log(order);
+
   })
 
-  var order = userBasket[userBasket.length - 1]
-  // enlever le nombre d'éléments (en 2eme position) pour transmettre seulement l'ID ? 
-  console.log(userBasket);
-    
+  
+  // var order = confirmShoppingCart;
+  //   // doublon donc enlever 1 pour transmettre 1 seule fois la requete 
+  // console.log(order);
+
+
   const createOrder = () => 
   {
   // Requete POST
@@ -121,7 +129,6 @@ if (userBasket.length>=1)
     .then(function(response) 
     {
       console.log(`response 'POST' ? ${response}`)
-      // TODO request POST
     })
     .catch(function(ex) 
     {
