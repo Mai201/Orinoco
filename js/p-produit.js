@@ -7,7 +7,6 @@ promiseGet()
 
 .then(function(response)
 {
-    // console.log(`response GetArticleById():${response}`)
     let items=document.querySelector(".js-chosen-article");
     const liCamera=document.createElement("li");
     liCamera.classList.add("list-cards-item");
@@ -72,7 +71,6 @@ promiseGet()
 
 .then(function(response) 
 {
-    console.log(`response GetArticleById():${response}`)
     let itemsPanier=document.querySelector(".card-button");
     const ajoutPanier=document.createElement("a");
     ajoutPanier.classList.add("btn", "btn-primary", "btn-top","col-6", "js-addBasket");
@@ -106,14 +104,11 @@ promiseGet()
                 quantitePanier.style.display = 'inline-block'
                 quantiteMessage.textContent = Number(quantiteMessage.textContent) + 1
 
-                if (quantiteMessage.textContent <= 1) 
-                {   
-                    userBasket.push([response._id, quantiteMessage.textContent])
-                } else
-                {
-                    userBasket.push([response._id, '1'])
-                    console.log(userBasket);
-                }
+                console.log(quantiteMessage.textContent);
+                
+                userBasket.push([response._id, quantiteMessage.textContent])
+                
+                console.log(userBasket)
                 
                 if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
                 {
@@ -137,13 +132,14 @@ promiseGet()
                 event.preventDefault()
                 quantiteMessage.textContent = Number(quantiteMessage.textContent) - 1
             
-                // console.log(quantiteMessage.textContent);
+                console.log(quantiteMessage.textContent);
                 
-                if (Number(quantiteMessage.textContent) >= 1) 
+                if (quantiteMessage.textContent >= 0) 
                 {
                     userBasket.pop(response)
                     window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
-                } else 
+                }
+                if (quantiteMessage.textContent <= 0)
                 {
                     supprPanier.style.display = 'none'
                     quantitePanier.style.display = 'none'
