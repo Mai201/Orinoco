@@ -16,7 +16,7 @@ function promiseGet()
                 {
                    resolve(JSON.parse(this.responseText)) 
                    var response = JSON.parse(this.responseText);
-                   console.log(response);
+                //    console.log(response);
                 } else 
                 {
                     reject(XMLHttpRequest);
@@ -50,16 +50,6 @@ const categories=
 }
 
 
-// // création de l'objet users
-// const USERS = {
-//     firstName: 'Pierre',
-//     lastName: 'Dupont',
-//     address: 'Place Tabareau',
-//     city: 'Lyon',
-//     email: 'pierre-dupont@gmail.com'
-//   }
-
-
 // création API_URL pour pouvoir éviter répétition des requetes HTTP, car composant de GET_choice
 const API_URL=
 {
@@ -70,9 +60,6 @@ const API_URL=
     _ORDER:"order"
 }
 
-// ne pas générer sur chaque page, mais sur celle du panier au moment de la commande:
-//const ORDER_ID = Math.round(Math.random() * 123456789)
-
 // Envoi données POST/ORDER
 
   function promisePost() 
@@ -82,7 +69,7 @@ const API_URL=
           const request= new XMLHttpRequest();
           request.open("POST", GET_choice);
           request.setRequestHeader('Content-Type', 'application/json')
-          
+          // order à définir 
           request.send(order);
           request.onreadystatechange = function() 
           {
