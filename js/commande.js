@@ -1,7 +1,3 @@
-// Ici, récupérer ID de commande + montant total 
-// et les afficher 
-
-
 // Récupération de données API (tableau GET/ faite dans request.js)
 var GET_choice = API_URL._HOST + API_URL._DIR + API_URL._CATEGORY
 
@@ -16,9 +12,12 @@ promiseGet()
 
     if (confirmShoppingCart !== null) 
     {
-        console.log(confirmShoppingCart)
         orderDescription.appendChild(infoConfirm).innerHTML="Votre commande a bien été validée";
-        orderDescription.appendChild(infoCommande).innerHTML="Mme/M."+confirmShoppingCart[0][1].firstName+confirmShoppingCart[0][1].lastName+", voici votre numéro de commande: <strong>"+confirmShoppingCart[0][0]+"</strong> </br> d'un montant total de : <strong></strong>"
+        orderDescription.appendChild(infoCommande).innerHTML="Mme/M.  "+ confirmShoppingCart[0].firstName + " " + confirmShoppingCart[0].lastName +", voici votre numéro de commande: <strong>"
+        //+ order["orderId"] +
+        "</strong> </br> d'un montant total de : <strong>"
+        //+totalPay+
+        "</strong>"
     } else 
     {
         orderDescription.innerHtml +=
@@ -28,6 +27,7 @@ promiseGet()
     returnHome.addEventListener('click', (event) => 
     {
         event.preventDefault()
+        alert("Attention, les données de commande vont être effacées")
         window.localStorage.clear()
         window.setTimeout(function () 
         {
