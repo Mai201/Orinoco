@@ -1,6 +1,10 @@
 // Récupération de données API (tableau GET/ faite dans request.js)
 var GET_choice = API_URL._HOST + API_URL._DIR + API_URL._CATEGORY
 
+let order = JSON.parse(window.localStorage.getItem("order"));
+console.log(order);
+console.log(confirmShoppingCart);
+
 const orderDescription = document.querySelector('.js-orderDescription')
 const infoConfirm=document.createElement("h2");
 const infoCommande=document.createElement("p");
@@ -12,10 +16,8 @@ promiseGet()
 
     if (confirmShoppingCart !== null) 
     {
-        orderDescription.appendChild(infoConfirm).innerHTML="Votre commande a bien été validée";
-        orderDescription.appendChild(infoCommande).innerHTML="Mme/M.  "+ confirmShoppingCart[0].firstName + " " + confirmShoppingCart[0].lastName +", voici votre numéro de commande: <strong>"
-        //+ order["orderId"] +
-        "</strong> </br> d'un montant total de : <strong>"
+        orderDescription.appendChild(infoConfirm).innerHTML="Votre commande a bien été validée, Mme/M. "+ confirmShoppingCart[0].firstName + " " + confirmShoppingCart[0].lastName 
+        orderDescription.appendChild(infoCommande).innerHTML="Récapitulatif de la commande: </br> Numéro de commande: <strong>"+ order["orderId"] +"</strong> </br> Montant total : <strong> € </strong> </br> Un message de confirmation, avec les informations de commande et le détail, vous a été envoyé à l'adresse mail suivante: <strong>"+confirmShoppingCart[0].email+"</strong>"
         //+totalPay+
         "</strong>"
     } else 
