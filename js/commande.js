@@ -1,9 +1,10 @@
 // Récupération de données API (tableau GET/ faite dans request.js)
 var GET_choice = API_URL._HOST + API_URL._DIR + API_URL._CATEGORY
 
+// Pour récupérer order mis dans localstorage au moment de la requete POST sur panier:
 let order = JSON.parse(window.localStorage.getItem("order"));
-console.log(order);
-console.log(confirmShoppingCart);
+//Pour récupérer prix total mis dans localstorage dans config et mis à jour sur panier
+JSON.parse(window.localStorage.getItem("totalPrice"))
 
 const orderDescription = document.querySelector('.js-orderDescription')
 const infoConfirm=document.createElement("h2");
@@ -17,8 +18,7 @@ promiseGet()
     if (confirmShoppingCart !== null) 
     {
         orderDescription.appendChild(infoConfirm).innerHTML="Votre commande a bien été validée, Mme/M. "+ confirmShoppingCart[0].firstName + " " + confirmShoppingCart[0].lastName 
-        orderDescription.appendChild(infoCommande).innerHTML="Récapitulatif de la commande: </br> Numéro de commande: <strong>"+ order["orderId"] +"</strong> </br> Montant total : <strong> € </strong> </br> Un message de confirmation, avec les informations de commande et le détail, vous a été envoyé à l'adresse mail suivante: <strong>"+confirmShoppingCart[0].email+"</strong>"
-        //+totalPay+
+        orderDescription.appendChild(infoCommande).innerHTML="Récapitulatif de votre achat: </br> Identifiant de commande: <strong>"+ order["orderId"] +"</strong> </br> Montant total de cet achat : <strong>"+totalPrice+" € </strong>"
         "</strong>"
     } else 
     {

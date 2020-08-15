@@ -25,3 +25,17 @@ if (window.localStorage.getItem('confirmShoppingCart'))
 // config du local storage pour envoyer dans panier
 const userBasket = JSON.parse(window.localStorage.getItem('userBasket'))
 const confirmShoppingCart = JSON.parse(window.localStorage.getItem('confirmShoppingCart'))
+
+
+// prix total du panier
+
+if(window.localStorage.getItem('totalPrice'))
+{
+    console.log('Total price available in local storage')
+} else 
+{
+    const totalPriceInit=[]
+    window.localStorage.setItem('totalPrice', JSON.stringify(totalPriceInit))
+}
+
+const totalPrice=JSON.parse(window.localStorage.getItem('totalPrice'))

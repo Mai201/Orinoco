@@ -28,17 +28,22 @@ promiseGet()
         chosenItems.appendChild(dataItems).appendChild(dataTd4).innerHTML += userBasket[f][1];
                     
         totalPay += (response[e].price / 100) * userBasket[f][1]
-        
       }
     }
   }
-
     if (totalPay >= 1) 
     {
         totalContent.textContent = `Récapitulatif de votre commande d'un total de : ${totalPay}€`
     } else 
     {
         totalContent.textContent = "Vous n'avez pas d'article dans le panier actuellement"
+    }
+
+    totalPrice.push(totalPay)
+    console.log(totalPrice)
+    if (window.localStorage.getItem('totalPrice', JSON.stringify(totalPrice)) !== null) 
+    {
+    window.localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
     }
 
     // ajout d'un bouton pour vider le panier
@@ -50,10 +55,10 @@ promiseGet()
     removeArticle.href="panier.html";
     removeArticle.classList.add = ""
     divRemoveArticle.appendChild(removeArticle).innerHTML+="Vider le panier";
-    removeArticle.addEventListener("click", function (e) {
+    removeArticle.addEventListener("click", function (e) 
+    {
         localStorage.clear()
     })
-
 })
 
 .catch(function (error)
