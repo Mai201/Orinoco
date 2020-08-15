@@ -28,6 +28,7 @@ promiseGet()
         chosenItems.appendChild(dataItems).appendChild(dataTd4).innerHTML += userBasket[f][1];
                     
         totalPay += (response[e].price / 100) * userBasket[f][1]
+        
       }
     }
   }
@@ -65,12 +66,6 @@ promiseGet()
 // envoi POST, order, et formulaire à vérifier avant envoi, si quelque chose dans le panier
 if (userBasket.length>=1)
 {
-// Récupération de config POST (/ORDER dans request.js)
-
-  var GET_choice = `${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ORDER}`
-  console.log(`POST_URL :${GET_choice}`)
-
-
   // constantes pour récup éléments du DOM
   const familyName = document.querySelector('.js-familyName')
   const givenName = document.querySelector('.js-givenName')
@@ -78,6 +73,8 @@ if (userBasket.length>=1)
   const address = document.querySelector('.js-address')
   const addressCity = document.querySelector('.js-addressCity')
   const submitForm = document.querySelector('.js-submitForm')
+
+  console.log(userBasket);
 
   submitForm.addEventListener('click', event => 
   {
@@ -91,10 +88,84 @@ if (userBasket.length>=1)
       city:addressCity.value,
       email:email.value,
     }
+
+    console.log(userBasket)
+    let products = [];
+    
+            for (f = 0; f < userBasket.length; f++) 
+            {
+                let article = userBasket[f][0]
+
+                products.push(article);
+            }
+
+    console.log(products);
+
+    // Récupération de config POST (/ORDER dans request.js)
+
+    var GET_choice = `${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ORDER}`
+    console.log(`POST_URL :${GET_choice}`)
+
+    let objet = {
+      contact,
+      products
+    };
+    
+    let order= JSON.stringify(objet);
+    console.log(order);
+
+
+
+    // Envoi données POST/ORDER
+
+  function promisePost() 
+  {
+      return new Promise((resolve, reject)=> 
+      {
+          const request= new XMLHttpRequest();
+          request.open("POST", GET_choice);
+          request.setRequestHeader('Content-Type', 'application/json')
+          //NB: const order à définir dans panier.js, avec objet contact et tableau products
+          request.send(order);
+          request.onreadystatechange = function() 
+          {
+              if (this.readyState === XMLHttpRequest.DONE) 
+              {
+                if (this.status >=200 && this.status<300)
+                {
+                    resolve(JSON.parse(this.responseText));
+                    var response = JSON.parse(this.responseText);
+                    console.log(response);
+                    alert("lire la réponse avec l'orderId")
+                    window.localStorage.setItem("order", this.responseText)
+                } else 
+                {
+                    reject(XMLHttpRequest);
+                    alert("erreur POST");
+                }
+              }
+          }
+      })
+  };
+
+    // Requete POST
+    promisePost()
+      .then(function(response) 
+      {
+        console.log(`response 'POST' ? ${response}`)
+        alert("lire la reponse promise")
+      })
+      .catch(function(ex) 
+      {
+        alert(`erreur requete promise : ${JSON.stringify(ex)}`)
+      })
+    
+
     
     alert("Votre commande a bien été prise en compte! Merci de patienter")
 
-    confirmShoppingCart.push(contact, [userBasket])
+    confirmShoppingCart.push(contact, products)
+
 
     if (window.localStorage.getItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart)) !== null) 
     {
@@ -110,31 +181,10 @@ if (userBasket.length>=1)
     window.location = 'commande.html'
     }, 2000)
 
-    var order = confirmShoppingCart;
-    // doublon donc enlever 1 pour transmettre 1 seule fois la requete 
-    console.log(order);
-
+    
   })
 
-  
-  // var order = confirmShoppingCart;
-  //   // doublon donc enlever 1 pour transmettre 1 seule fois la requete 
-  // console.log(order);
 
-
-  const createOrder = () => 
-  {
-  // Requete POST
-    promisePost()
-    .then(function(response) 
-    {
-      console.log(`response 'POST' ? ${response}`)
-    })
-    .catch(function(ex) 
-    {
-      console.error(`erreur requete post : ${JSON.stringify(ex)}`)
-    })
-  }
 } else 
 {
   alert("panier vide, commande impossible");

@@ -60,30 +60,32 @@ const API_URL=
     _ORDER:"order"
 }
 
-// Envoi données POST/ORDER
+// // Envoi données POST/ORDER
 
-  function promisePost() 
-  {
-      return new Promise((resolve, reject)=> 
-      {
-          const request= new XMLHttpRequest();
-          request.open("POST", GET_choice);
-          request.setRequestHeader('Content-Type', 'application/json')
-          // order à définir 
-          request.send(order);
-          request.onreadystatechange = function() 
-          {
-              if (this.readyState === XMLHttpRequest.DONE) 
-              {
-                if (this.status ===200)
-                {
-                    resolve(JSON.parse(this.responseText)) 
-                } else 
-                {
-                    reject(XMLHttpRequest);
-                    alert("erreur POST");
-                }
-              }
-          }
-      })
-  };
+//   function promisePost() 
+//   {
+//       return new Promise((resolve, reject)=> 
+//       {
+//           const request= new XMLHttpRequest();
+//           request.open("POST", GET_choice);
+//           request.setRequestHeader('Content-Type', 'application/json')
+//           //NB: const order à définir dans panier.js, avec objet contact et tableau products
+//           request.send(order);
+//           request.onreadystatechange = function() 
+//           {
+//               if (this.readyState === XMLHttpRequest.DONE) 
+//               {
+//                 if (this.status ===200)
+//                 {
+//                     resolve(JSON.parse(this.responseText));
+//                     var response = JSON.parse(this.responseText);
+//                     console.log(response);
+//                 } else 
+//                 {
+//                     reject(XMLHttpRequest);
+//                     alert("erreur POST");
+//                 }
+//               }
+//           }
+//       })
+//   };
