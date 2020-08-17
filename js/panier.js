@@ -119,40 +119,6 @@ if (userBasket.length>=1)
     let order= JSON.stringify(objet);
     console.log(order);
 
-
-
-    // Envoi données POST/ORDER
-
-  function promisePost() 
-  {
-      return new Promise((resolve, reject)=> 
-      {
-          const request= new XMLHttpRequest();
-          request.open("POST", GET_choice);
-          request.setRequestHeader('Content-Type', 'application/json')
-          //NB: const order à définir dans panier.js, avec objet contact et tableau products
-          request.send(order);
-          request.onreadystatechange = function() 
-          {
-              if (this.readyState === XMLHttpRequest.DONE) 
-              {
-                if (this.status >=200 && this.status<300)
-                {
-                    resolve(JSON.parse(this.responseText));
-                    var response = JSON.parse(this.responseText);
-                    console.log(response);
-                    alert("lire la réponse avec l'orderId")
-                    window.localStorage.setItem("order", this.responseText)
-                } else 
-                {
-                    reject(XMLHttpRequest);
-                    alert("erreur POST");
-                }
-              }
-          }
-      })
-  };
-
     // Requete POST
     promisePost()
       .then(function(response) 
