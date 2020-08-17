@@ -23,34 +23,31 @@ promiseGet()
     optionCamera.classList.add("card-text");
     const descriptionCamera=document.createElement("p");
     descriptionCamera.classList.add("card-text");
-    const divDropdown=document.createElement("div");
-    divDropdown.classList.add("dropdown");
-    const buttonLenses=document.createElement("button");
-    buttonLenses.classList.add("btn","btn-info","dropdown-toggle")
-    buttonLenses.type="button";
-    buttonLenses.setAttribute("data-toggle", "dropdown");
+
+    const lensesOption=document.createElement("label");
+    lensesOption.classList.add("btn", "btn-outline-info");
+    const lensesChoice=document.createElement("select");
+    lensesChoice.classList.add("menu");
     const divButton=document.createElement("div");
-    divButton.classList.add("card-button")
-    const lensesChoice=document.createElement("div");
-    lensesChoice.classList.add("dropdown-menu");
+    divButton.classList.add("card-button");
     
     items.appendChild(liCamera).appendChild(imageCamera)
     items.appendChild(liCamera).appendChild(divBody).appendChild(nameCamera).innerHTML="Appareil photo "+response["name"];
     items.appendChild(liCamera).appendChild(divBody).appendChild(priceCamera).innerHTML="Prix: "+response["price"]/100+"€";
     items.appendChild(liCamera).appendChild(divBody).appendChild(descriptionCamera).innerHTML="Description du produit: " +response["description"];
-    items.appendChild(liCamera).appendChild(divBody).appendChild(divDropdown).appendChild(buttonLenses).innerHTML+="Lentilles disponibles: ";
-    items.appendChild(liCamera).appendChild(divBody).appendChild(divDropdown).appendChild(lensesChoice);
+    items.appendChild(liCamera).appendChild(divBody).appendChild(lensesOption).innerHTML+="Lentilles disponibles: ";
+    items.appendChild(liCamera).appendChild(divBody).appendChild(lensesOption).appendChild(lensesChoice);
     items.appendChild(liCamera).appendChild(divBody).appendChild(divButton);
 
 
-    // simple menu déroulant pour liste des lentilles disponibles
+    // menu pour liste des lentilles disponibles et choix
     try
         {
             for (let j = 0; j < response.lenses.length; j++) 
             {
-                let option=document.querySelector(".dropdown-menu");
+                let option=document.querySelector(".menu");
                 option.value = response.lenses[j];
-                option.innerHTML+=`<a class="dropdown-item" >lentille: ${response.lenses[j]}</a>`
+                option.innerHTML+=`<option class="itemsChoice" >Choix: ${response.lenses[j]}</option>`
             }
         } catch (error)
         {
