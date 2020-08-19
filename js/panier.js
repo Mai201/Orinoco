@@ -33,17 +33,17 @@ promiseGet()
   }
     if (totalPay >= 1) 
     {
-        totalContent.textContent = `Récapitulatif de votre commande d'un total de : ${totalPay}€`
+      totalContent.textContent = `Récapitulatif de votre commande d'un total de : ${totalPay}€`
     } else 
     {
-        totalContent.textContent = "Vous n'avez pas d'article dans le panier actuellement"
+      totalContent.textContent = "Vous n'avez pas d'article dans le panier actuellement"
     }
 
     totalPrice.push(totalPay)
     console.log(totalPrice)
     if (window.localStorage.getItem('totalPrice', JSON.stringify(totalPrice)) !== null) 
     {
-    window.localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
+      window.localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
     }
 
     // ajout d'un bouton pour vider le panier
@@ -57,30 +57,29 @@ promiseGet()
     divRemoveArticle.appendChild(removeArticle).innerHTML+="Vider le panier";
     removeArticle.addEventListener("click", function (e) 
     {
-        localStorage.clear()
+      localStorage.clear()
     })
 })
 
 .catch(function (error)
 {
-    alert("erreur total panier");
+  alert("erreur total panier");
 })
 
 
+// constantes pour récup éléments du DOM
+const familyName = document.querySelector('.js-familyName')
+const givenName = document.querySelector('.js-givenName')
+const email = document.querySelector('.js-email')
+const address = document.querySelector('.js-address')
+const addressCity = document.querySelector('.js-addressCity')
+const submitForm = document.querySelector('.js-submitForm')
+
+console.log(userBasket);
 
 // envoi POST, order, et formulaire à vérifier avant envoi, si quelque chose dans le panier
 if (userBasket.length>=1)
 {
-  // constantes pour récup éléments du DOM
-  const familyName = document.querySelector('.js-familyName')
-  const givenName = document.querySelector('.js-givenName')
-  const email = document.querySelector('.js-email')
-  const address = document.querySelector('.js-address')
-  const addressCity = document.querySelector('.js-addressCity')
-  const submitForm = document.querySelector('.js-submitForm')
-
-  console.log(userBasket);
-
   submitForm.addEventListener('click', event => 
   {
     event.preventDefault()
@@ -97,21 +96,52 @@ if (userBasket.length>=1)
     console.log(userBasket)
     let products = [];
     
-            for (f = 0; f < userBasket.length; f++) 
-            {
-                let article = userBasket[f][0]
-
-                products.push(article);
-            }
+    for (f = 0; f < userBasket.length; f++) 
+    {
+      let article = userBasket[f][0]
+      products.push(article);
+    }
 
     console.log(products);
 
     // Récupération de config POST (/ORDER dans request.js)
+    
+    
+    function promisePost() 
+    {
+      return new Promise((resolve, reject)=> 
+      {
+        const request= new XMLHttpRequest();
+        request.open("POST", GET_choice);
+        request.setRequestHeader('Content-Type', 'application/json')
+        //NB: const order à définir dans panier.js, avec objet contact et tableau products
+        request.send(order);
+        request.onreadystatechange = function() 
+        {
+          if (this.readyState === XMLHttpRequest.DONE) 
+          {
+            if (this.status >=200 && this.status<300)
+            {
+              resolve(JSON.parse(this.responseText));
+              var response = JSON.parse(this.responseText);
+              console.log(response);
+              alert("lire la réponse avec l'orderId")
+              window.localStorage.setItem("order", this.responseText)
+            } else 
+            {
+              reject(XMLHttpRequest);
+              alert("erreur POST");
+            }
+          }
+        }
+      })
+    };
 
     var GET_choice = `${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ORDER}`
     console.log(`POST_URL :${GET_choice}`)
 
-    let objet = {
+    let objet = 
+    {
       contact,
       products
     };
@@ -125,34 +155,32 @@ if (userBasket.length>=1)
       {
         console.log(`response 'POST' ? ${response}`)
         alert("lire la reponse promise")
+
+        alert("Votre commande a bien été prise en compte! Merci de patienter")
+
+        confirmShoppingCart.push(contact, products)
+
+
+        if (window.localStorage.getItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart)) !== null) 
+        {
+        window.localStorage.setItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart))
+        }
+        if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
+        {
+        window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
+        }
+
+        window.setTimeout(() => 
+        {
+        window.location = 'commande.html'
+        }, 2000)
+
       })
+      
       .catch(function(ex) 
       {
         alert(`erreur requete promise : ${JSON.stringify(ex)}`)
       })
-    
-
-    
-    alert("Votre commande a bien été prise en compte! Merci de patienter")
-
-    confirmShoppingCart.push(contact, products)
-
-
-    if (window.localStorage.getItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart)) !== null) 
-    {
-      window.localStorage.setItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart))
-    }
-    if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
-    {
-      window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
-    }
-
-    window.setTimeout(() => 
-    {
-    window.location = 'commande.html'
-    }, 2000)
-
-    
   })
 
 
