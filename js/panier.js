@@ -63,7 +63,7 @@ promiseGet()
 
 .catch(function (error)
 {
-  alert("erreur total panier");
+  console.error("erreur total panier");
 })
 
 
@@ -75,9 +75,10 @@ if (userBasket.length>=1)
 {
   const formInfo=document.createElement('div');
   formInfo.classList.add('form-info');
+  const legendInfo=document.createElement('legend');
   const labelFamilyName=document.createElement('label')
   const familyName = document.createElement('input');
-  familyName.classList.add('.js-familyName')
+  familyName.classList.add('js-familyName', 'form-control')
   let helpForm=document.createElement('div')
   helpForm.classList.add('text-center')
   familyName.required=true;
@@ -86,12 +87,13 @@ if (userBasket.length>=1)
   familyName.type="text"
   familyName.placeholder="Minuscule ou majuscule"
 
+  form.appendChild(formInfo).appendChild(legendInfo).innerHTML="Formulaire à remplir pour passer commande :"
   form.appendChild(formInfo).appendChild(labelFamilyName).innerHTML="Nom de famille :"
   form.appendChild(formInfo).appendChild(familyName)
 
   const labelGivenName=document.createElement('label')
   const givenName = document.createElement('input');
-  givenName.classList.add('.js-givenName')
+  givenName.classList.add('js-givenName', 'form-control')
   givenName.required=true;
   givenName.name="Prénom"
   givenName.id="givenName"
@@ -103,7 +105,7 @@ if (userBasket.length>=1)
 
   const labelEmail=document.createElement('label')
   const email = document.createElement('input');
-  email.classList.add('.js-email')
+  email.classList.add('js-email', 'form-control')
   email.required=true;
   email.name="Adresse e-mail"
   email.id="email"
@@ -115,7 +117,7 @@ if (userBasket.length>=1)
 
   const labelAddress=document.createElement('label')
   const address = document.createElement('input');
-  address.classList.add('.js-address')
+  address.classList.add('js-address', 'form-control')
   address.required=true;
   address.name="Adresse"
   address.id="address"
@@ -127,7 +129,7 @@ if (userBasket.length>=1)
 
   const labelAddressCity=document.createElement('label')
   const addressCity = document.createElement('input');
-  addressCity.classList.add('.js-addressCity')
+  addressCity.classList.add('js-addressCity', 'form-control')
   addressCity.required=true;
   addressCity.name="Ville"
   addressCity.id="addressCity"
@@ -138,17 +140,19 @@ if (userBasket.length>=1)
   form.appendChild(formInfo).appendChild(labelAddressCity).innerHTML="Ville : "
   form.appendChild(formInfo).appendChild(addressCity)
 
-  const submitForm = document.createElement('input');
-  submitForm.classList.add('.js-submitForm', 'btn', 'btn-primary')
+  const commandForm=document.createElement('div')
+  commandForm.classList.add('row', 'col')
+  const submitForm = document.createElement('button');
+  submitForm.classList.add('js-submitForm', 'btn', 'btn-primary', 'col-4')
   submitForm.type="submit"
 
-  form.appendChild(formInfo).appendChild(submitForm).innerHTML="Confirmer"
+  form.appendChild(formInfo).appendChild(commandForm).appendChild(submitForm).innerHTML="Confirmer"
 
   const resetForm=document.createElement('button')
-  resetForm.classList.add('.js-resetForm', 'btn','btn-danger')
+  resetForm.classList.add('js-resetForm', 'btn','btn-danger','offset-4','col-4')
   resetForm.type="reset"
 
-  form.appendChild(formInfo).appendChild(resetForm).innerHTML="Supprimer"
+  form.appendChild(formInfo).appendChild(commandForm).appendChild(resetForm).innerHTML="Supprimer"
 
   //création de fonctions pour vérifier validité des champs à l'envoi, avec regex
 
@@ -163,7 +167,7 @@ if (userBasket.length>=1)
   }
   function validAddress(value)
   {
-    return /^[A-Z-a-z-0-9\s]{3,40}$/.test(value)
+    return /^[A-Z-a-z-0-9\s]{8,40}$/.test(value)
   }
 
   function validCity(value)
@@ -177,37 +181,48 @@ if (userBasket.length>=1)
     {
     } else
     {
+      form.appendChild(helpForm);
+      helpForm.classList.add('alert', 'alert-info');
+      helpForm.role="alert";
+      helpForm.innerHTML=`Nom et prénom: seuls les caractères alpha sont autorisés`
       event.preventDefault()
-      alert("Seuls les caractères alpha sont autorisés pour les noms et prénoms")
     }   
     if (validEmail(email.value))
     {
     } else
     {
+      form.appendChild(helpForm);
+      helpForm.classList.add('alert', 'alert-info');
+      helpForm.role="alert";
+      helpForm.innerHTML=`Adresse mail incorrecte`
       event.preventDefault()
-      alert("Adresse mail incorrecte")
     }
     if(validAddress(address.value))
     {
     } else
     {
-      alert("Adresse incorrecte")
+      form.appendChild(helpForm);
+      helpForm.classList.add('alert', 'alert-info');
+      helpForm.role="alert";
+      helpForm.innerHTML=`Adresse incorrecte, minimum 8 caractères`
+      event.preventDefault()
     }
     if(validCity(addressCity.value))
     {
     } else
     {
-      alert("Ville incorrecte")
+      form.appendChild(helpForm);
+      helpForm.classList.add('alert', 'alert-info');
+      helpForm.role="alert";
+      helpForm.innerHTML=`Ville incorrecte, minimum 3 caractères`
+      event.preventDefault()
     }
 
 
     if (validityOk(familyName.value) && validityOk(givenName.value) && validEmail(email.value) && validAddress(address.value) && validCity(addressCity.value)) 
     
     {
-      alert("Votre commande a bien été prise en compte! Merci de patienter")
       event.preventDefault();
-      
-      console.log('coucou')
 
       let contact= 
       {
@@ -250,12 +265,12 @@ if (userBasket.length>=1)
                     resolve(JSON.parse(this.responseText));
                     var response = JSON.parse(this.responseText);
                     console.log(response);
-                    alert("lire la réponse avec l'orderId")
+                    console.error("lire la réponse avec l'orderId")
                     window.localStorage.setItem("order", this.responseText)
                   } else 
                   {
                     reject(XMLHttpRequest);
-                    alert("erreur POST");
+                    console.error("erreur POST");
                   }
                 }
               }
@@ -279,12 +294,18 @@ if (userBasket.length>=1)
         .then(function(response) 
             {
               console.log(`response 'POST' ? ${response}`)
-              alert("lire la reponse promise")
-      
-              alert("Votre commande a bien été prise en compte! Merci de patienter")
+              console.error("lire la reponse promise")
+              
+              //une fois que la commande est passée, désactiver boutons submit et reset
+              submitForm.style.display = 'none'
+              resetForm.style.display= 'none'
+
+              // alert bootstrap pour annoncer que commande passée
+              form.classList.add('alert', 'alert-success');
+              form.role="alert";
+              form.innerHTML+=`Votre commande a bien été prise en compte! Merci de patienter`
       
               confirmShoppingCart.push(contact, products)
-      
       
               if (window.localStorage.getItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart)) !== null) 
               {
@@ -304,18 +325,20 @@ if (userBasket.length>=1)
             
         .catch(function(ex) 
         {
-          alert(`erreur requete promise : ${JSON.stringify(ex)}`)
+          console.error(`erreur requete promise : ${JSON.stringify(ex)}`)
         })
 
     } else 
     {
       event.preventDefault()
-      alert("erreur dans le formulaire, pas d'envoi")
+      console.error("erreur dans le formulaire, pas d'envoi")
     }
   });
 
 
 } else 
 {
-  alert("panier vide, commande impossible");
+  form.classList.add('alert', 'alert-info');
+  form.role="alert";
+  form.innerHTML+=`Panier vide, commande impossible`
 }

@@ -15,6 +15,23 @@
     display:none;
 }
 
+.removeArticle
+{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+label
+{
+    font-weight:bold;
+    margin-right: 5px;
+}
+
+.js-submitForm, .js-resetForm
+{
+    margin-top:20px;
+}
+
 .js-backHome
 {
     margin-bottom:30px;
