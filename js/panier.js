@@ -67,121 +67,252 @@ promiseGet()
 })
 
 
-// constantes pour récup éléments du DOM
-const familyName = document.querySelector('.js-familyName')
-const givenName = document.querySelector('.js-givenName')
-const email = document.querySelector('.js-email')
-const address = document.querySelector('.js-address')
-const addressCity = document.querySelector('.js-addressCity')
-const submitForm = document.querySelector('.js-submitForm')
-
-console.log(userBasket);
+// constante pour récup élément du DOM
+const form=document.querySelector('.form');
 
 // envoi POST, order, et formulaire à vérifier avant envoi, si quelque chose dans le panier
 if (userBasket.length>=1)
 {
-  submitForm.addEventListener('click', event => 
+  const formInfo=document.createElement('div');
+  formInfo.classList.add('form-info');
+  const labelFamilyName=document.createElement('label')
+  const familyName = document.createElement('input');
+  familyName.classList.add('.js-familyName')
+  let helpForm=document.createElement('div')
+  helpForm.classList.add('text-center')
+  familyName.required=true;
+  familyName.name="Nom de famille"
+  familyName.id="familyName"
+  familyName.type="text"
+  familyName.placeholder="Minuscule ou majuscule"
+
+  form.appendChild(formInfo).appendChild(labelFamilyName).innerHTML="Nom de famille :"
+  form.appendChild(formInfo).appendChild(familyName)
+
+  const labelGivenName=document.createElement('label')
+  const givenName = document.createElement('input');
+  givenName.classList.add('.js-givenName')
+  givenName.required=true;
+  givenName.name="Prénom"
+  givenName.id="givenName"
+  givenName.type="text"
+  givenName.placeholder="Minuscule ou majuscule"
+
+  form.appendChild(formInfo).appendChild(labelGivenName).innerHTML="Prénom :"
+  form.appendChild(formInfo).appendChild(givenName)
+
+  const labelEmail=document.createElement('label')
+  const email = document.createElement('input');
+  email.classList.add('.js-email')
+  email.required=true;
+  email.name="Adresse e-mail"
+  email.id="email"
+  email.type="email"
+  email.placeholder="adresse@domaine.fr"
+
+  form.appendChild(formInfo).appendChild(labelEmail).innerHTML="Adresse e-mail :"
+  form.appendChild(formInfo).appendChild(email)
+
+  const labelAddress=document.createElement('label')
+  const address = document.createElement('input');
+  address.classList.add('.js-address')
+  address.required=true;
+  address.name="Adresse"
+  address.id="address"
+  address.type="text"
+  address.placeholder="Minuscule ou majuscule"
+
+  form.appendChild(formInfo).appendChild(labelAddress).innerHTML="Adresse :"
+  form.appendChild(formInfo).appendChild(address)
+
+  const labelAddressCity=document.createElement('label')
+  const addressCity = document.createElement('input');
+  addressCity.classList.add('.js-addressCity')
+  addressCity.required=true;
+  addressCity.name="Ville"
+  addressCity.id="addressCity"
+  addressCity.type="text"
+  addressCity.placeholder="Minuscule ou majuscule"
+
+
+  form.appendChild(formInfo).appendChild(labelAddressCity).innerHTML="Ville : "
+  form.appendChild(formInfo).appendChild(addressCity)
+
+  const submitForm = document.createElement('input');
+  submitForm.classList.add('.js-submitForm', 'btn', 'btn-primary')
+  submitForm.type="submit"
+
+  form.appendChild(formInfo).appendChild(submitForm).innerHTML="Confirmer"
+
+  const resetForm=document.createElement('button')
+  resetForm.classList.add('.js-resetForm', 'btn','btn-danger')
+  resetForm.type="reset"
+
+  form.appendChild(formInfo).appendChild(resetForm).innerHTML="Supprimer"
+
+  //création de fonctions pour vérifier validité des champs à l'envoi, avec regex
+
+  function validityOk(value)
   {
-    event.preventDefault()
+    return /^[A-Z-a-z]{3,40}$/.test(value); 
+  }
 
-    let contact= 
+  function validEmail(value)
+  {
+    return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
+  }
+  function validAddress(value)
+  {
+    return /^[A-Z-a-z-0-9\s]{3,40}$/.test(value)
+  }
+
+  function validCity(value)
+  {
+    return /^[A-Z-a-z-\s]{3,40}$/.test(value)
+  }
+
+  form.addEventListener('submit', event => 
+  {
+    if (validityOk(familyName.value) && validityOk(givenName.value))
     {
-      firstName:givenName.value,
-      lastName: familyName.value,
-      address: address.value,
-      city:addressCity.value,
-      email:email.value,
+    } else
+    {
+      event.preventDefault()
+      alert("Seuls les caractères alpha sont autorisés pour les noms et prénoms")
+    }   
+    if (validEmail(email.value))
+    {
+    } else
+    {
+      event.preventDefault()
+      alert("Adresse mail incorrecte")
+    }
+    if(validAddress(address.value))
+    {
+    } else
+    {
+      alert("Adresse incorrecte")
+    }
+    if(validCity(addressCity.value))
+    {
+    } else
+    {
+      alert("Ville incorrecte")
     }
 
-    console.log(userBasket)
-    let products = [];
+
+    if (validityOk(familyName.value) && validityOk(givenName.value) && validEmail(email.value) && validAddress(address.value) && validCity(addressCity.value)) 
     
-    for (f = 0; f < userBasket.length; f++) 
     {
-      let article = userBasket[f][0]
-      products.push(article);
-    }
-
-    console.log(products);
-
-    // Récupération de config POST (/ORDER dans request.js)
-    
-    
-    function promisePost() 
-    {
-      return new Promise((resolve, reject)=> 
-      {
-        const request= new XMLHttpRequest();
-        request.open("POST", GET_choice);
-        request.setRequestHeader('Content-Type', 'application/json')
-        //NB: const order à définir dans panier.js, avec objet contact et tableau products
-        request.send(order);
-        request.onreadystatechange = function() 
-        {
-          if (this.readyState === XMLHttpRequest.DONE) 
-          {
-            if (this.status >=200 && this.status<300)
-            {
-              resolve(JSON.parse(this.responseText));
-              var response = JSON.parse(this.responseText);
-              console.log(response);
-              alert("lire la réponse avec l'orderId")
-              window.localStorage.setItem("order", this.responseText)
-            } else 
-            {
-              reject(XMLHttpRequest);
-              alert("erreur POST");
-            }
-          }
-        }
-      })
-    };
-
-    var GET_choice = `${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ORDER}`
-    console.log(`POST_URL :${GET_choice}`)
-
-    let objet = 
-    {
-      contact,
-      products
-    };
-    
-    let order= JSON.stringify(objet);
-    console.log(order);
-
-    // Requete POST
-    promisePost()
-      .then(function(response) 
-      {
-        console.log(`response 'POST' ? ${response}`)
-        alert("lire la reponse promise")
-
-        alert("Votre commande a bien été prise en compte! Merci de patienter")
-
-        confirmShoppingCart.push(contact, products)
-
-
-        if (window.localStorage.getItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart)) !== null) 
-        {
-        window.localStorage.setItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart))
-        }
-        if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
-        {
-        window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
-        }
-
-        window.setTimeout(() => 
-        {
-        window.location = 'commande.html'
-        }, 2000)
-
-      })
+      alert("Votre commande a bien été prise en compte! Merci de patienter")
+      event.preventDefault();
       
-      .catch(function(ex) 
+      console.log('coucou')
+
+      let contact= 
       {
-        alert(`erreur requete promise : ${JSON.stringify(ex)}`)
-      })
-  })
+        firstName:givenName.value,
+        lastName: familyName.value,
+        address: address.value,
+        city:addressCity.value,
+        email:email.value,
+      }
+      
+      console.log(userBasket)
+      let products = [];
+        
+      for (f = 0; f < userBasket.length; f++) 
+      {
+        let article = userBasket[f][0]
+        products.push(article);
+      }
+      
+      console.log(products);
+      
+      // Récupération de config POST (/ORDER dans request.js)
+          
+          
+      function promisePost() 
+          {
+            return new Promise((resolve, reject)=> 
+            {
+              const request= new XMLHttpRequest();
+              request.open("POST", GET_choice);
+              request.setRequestHeader('Content-Type', 'application/json')
+              //NB: const order à définir dans panier.js, avec objet contact et tableau products
+              request.send(order);
+              request.onreadystatechange = function() 
+              {
+                if (this.readyState === XMLHttpRequest.DONE) 
+                {
+                  if (this.status >=200 && this.status<300)
+                  {
+                    resolve(JSON.parse(this.responseText));
+                    var response = JSON.parse(this.responseText);
+                    console.log(response);
+                    alert("lire la réponse avec l'orderId")
+                    window.localStorage.setItem("order", this.responseText)
+                  } else 
+                  {
+                    reject(XMLHttpRequest);
+                    alert("erreur POST");
+                  }
+                }
+              }
+            })
+      };
+      
+      var GET_choice = `${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ORDER}`
+      console.log(`POST_URL :${GET_choice}`)
+      
+      let objet = 
+      {
+        contact,
+        products
+      };
+          
+      let order= JSON.stringify(objet);
+      console.log(order);
+      
+      // Requete POST
+      promisePost()
+        .then(function(response) 
+            {
+              console.log(`response 'POST' ? ${response}`)
+              alert("lire la reponse promise")
+      
+              alert("Votre commande a bien été prise en compte! Merci de patienter")
+      
+              confirmShoppingCart.push(contact, products)
+      
+      
+              if (window.localStorage.getItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart)) !== null) 
+              {
+              window.localStorage.setItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart))
+              }
+              if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
+              {
+              window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
+              }
+      
+              window.setTimeout(() => 
+              {
+              window.location = 'commande.html'
+              }, 2000)
+      
+        })
+            
+        .catch(function(ex) 
+        {
+          alert(`erreur requete promise : ${JSON.stringify(ex)}`)
+        })
+
+    } else 
+    {
+      event.preventDefault()
+      alert("erreur dans le formulaire, pas d'envoi")
+    }
+  });
 
 
 } else 
