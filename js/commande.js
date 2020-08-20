@@ -13,8 +13,6 @@ while (totalPrice.length>=2)
     var first=totalPrice.shift();
 }
 
-console.log(totalPrice);
-
 const orderDescription = document.querySelector('.js-orderDescription')
 const infoConfirm=document.createElement("h2");
 const infoCommande=document.createElement("p");
@@ -49,5 +47,5 @@ promiseGet()
 
 .catch(function(ex) 
 {
-    console.log(`erreur de données de confirmation : ${JSON.stringify(ex)}`)
+    console.error(`erreur de données de confirmation : ${JSON.stringify(ex)}`)
 })

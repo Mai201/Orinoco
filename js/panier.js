@@ -40,7 +40,6 @@ promiseGet()
     }
 
     totalPrice.push(totalPay)
-    console.log(totalPrice)
     if (window.localStorage.getItem('totalPrice', JSON.stringify(totalPrice)) !== null) 
     {
       window.localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
@@ -233,7 +232,6 @@ if (userBasket.length>=1)
         email:email.value,
       }
       
-      console.log(userBasket)
       let products = [];
         
       for (f = 0; f < userBasket.length; f++) 
@@ -241,8 +239,6 @@ if (userBasket.length>=1)
         let article = userBasket[f][0]
         products.push(article);
       }
-      
-      console.log(products);
       
       // Récupération de config POST (/ORDER dans request.js)
           
@@ -264,8 +260,6 @@ if (userBasket.length>=1)
                   {
                     resolve(JSON.parse(this.responseText));
                     var response = JSON.parse(this.responseText);
-                    console.log(response);
-                    console.error("lire la réponse avec l'orderId")
                     window.localStorage.setItem("order", this.responseText)
                   } else 
                   {
@@ -278,7 +272,6 @@ if (userBasket.length>=1)
       };
       
       var GET_choice = `${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ORDER}`
-      console.log(`POST_URL :${GET_choice}`)
       
       let objet = 
       {
@@ -287,15 +280,11 @@ if (userBasket.length>=1)
       };
           
       let order= JSON.stringify(objet);
-      console.log(order);
       
       // Requete POST
       promisePost()
         .then(function(response) 
-            {
-              console.log(`response 'POST' ? ${response}`)
-              console.error("lire la reponse promise")
-              
+            {          
               //une fois que la commande est passée, désactiver boutons submit et reset
               submitForm.style.display = 'none'
               resetForm.style.display= 'none'
@@ -340,5 +329,5 @@ if (userBasket.length>=1)
 {
   form.classList.add('alert', 'alert-info');
   form.role="alert";
-  form.innerHTML+=`Panier vide, commande impossible`
+  form.innerHTML+=`Panier vide, formulaire de commande désactivé`
 }

@@ -20,7 +20,7 @@ function promiseGet()
                 } else 
                 {
                     reject(XMLHttpRequest);
-                    alert("erreur GET");
+                    console.error("erreur GET");
                 }
             }
         }
@@ -84,7 +84,7 @@ const API_URL=
 //                 } else 
 //                 {
 //                     reject(XMLHttpRequest);
-//                     alert("erreur POST");
+//                     console.error("erreur POST");
 //                 }
 //               }
 //           }

@@ -41,5 +41,5 @@ promiseGet()
 
     .catch(function (error)
     {
-        alert("erreur affectation réponse");
+        console.error("erreur affectation réponse");
     })

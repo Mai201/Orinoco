@@ -51,13 +51,13 @@ promiseGet()
             }
         } catch (error)
         {
-            alert("erreur boucle des lentilles");
+            console.error("erreur boucle des lentilles");
         }
 })
 
 .catch(function (error)
 {
-    alert("erreur affectation réponse");
+    console.error("erreur affectation de l'article");
 })
 
 
@@ -101,12 +101,8 @@ promiseGet()
                 quantitePanier.style.display = 'inline-block'
                 quantiteMessage.textContent = Number(quantiteMessage.textContent) + 1
 
-                console.log(quantiteMessage.textContent);
-                
-                userBasket.push([response._id, quantiteMessage.textContent])
-                
-                console.log(userBasket)
-                
+                userBasket.push([response._id, '1'])
+
                 if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
                 {
                     window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
@@ -118,7 +114,7 @@ promiseGet()
             })
         } catch (error)
         {
-            alert("erreur ajout dans panier");
+            console.error("erreur ajout dans panier");
         }
 
 
@@ -128,8 +124,6 @@ promiseGet()
             {
                 event.preventDefault()
                 quantiteMessage.textContent = Number(quantiteMessage.textContent) - 1
-            
-                console.log(quantiteMessage.textContent);
                 
                 if (quantiteMessage.textContent >= 0) 
                 {
@@ -145,6 +139,6 @@ promiseGet()
             })
         } catch(error) 
         {
-            alert("erreur suppression dans panier")
+            console.error("erreur suppression dans panier")
         }   
 })
