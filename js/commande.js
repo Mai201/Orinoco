@@ -36,7 +36,8 @@ promiseGet()
     returnHome.addEventListener('click', (event) => 
     {
         event.preventDefault()
-        alert("Attention, les données de commande vont être effacées")
+        returnHome.classList.add('alert','alert-warning')
+        returnHome.innerHTML="Réinitialisation. Vous pouvez désormais passer une nouvelle commande"
         window.localStorage.clear()
         window.setTimeout(function () 
         {
