@@ -1,10 +1,7 @@
-// nouvelle variable pour GET, pour récupérer les éléments par Id (des app photos, ici)
-var GET_choice=`${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ID}`
+// nouveaux arguments pour fonction, pour récupérer les éléments par Id (des app photos, ici)
+promiseGet('GET', openURL_ID)
 
 // Affectation des données sur page produit
-
-promiseGet()
-
 .then(function(response)
 {
     let items=document.querySelector(".js-chosen-article");
@@ -40,7 +37,7 @@ promiseGet()
     items.appendChild(liCamera).appendChild(divBody).appendChild(divButton);
 
 
-    // menu pour liste des lentilles disponibles et choix
+    // menu pour liste des lentilles disponibles et choix (non fonctionnel comme prévu dans CC)
     try
         {
             for (let j = 0; j < response.lenses.length; j++) 
@@ -64,7 +61,7 @@ promiseGet()
 // boutons ajout et supression du panier, et affichage de la quantité
 // pour mémoire: config avec local storage faite dans config-storage.js
 
-promiseGet()
+promiseGet('GET', openURL_ID)
 
 .then(function(response) 
 {
@@ -95,6 +92,7 @@ promiseGet()
     
     try
         {
+            //ajout dans panier
             ajoutPanier.addEventListener('click', (event) => 
             {
                 event.preventDefault()
@@ -120,6 +118,7 @@ promiseGet()
 
         try
         {
+            //suppression dans panier
             supprPanier.addEventListener('click', (event) => 
             {
                 event.preventDefault()

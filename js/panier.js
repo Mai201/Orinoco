@@ -1,9 +1,7 @@
-// Récupération de données API (tableau GET/ faite dans request.js)
+// Récupération de données API/GET, fonction faite dans request.js
+// + ajout données en arguments
 
-// const { request } = require("express");
-var GET_choice = API_URL._HOST + API_URL._DIR + API_URL._CATEGORY
-
-promiseGet()
+promiseGet('GET', openURL)
 .then(function(response)
 {
   const totalContent=document.querySelector(".js-priceBasket");
@@ -239,39 +237,7 @@ if (userBasket.length>=1)
         let article = userBasket[f][0]
         products.push(article);
       }
-      
-      // Récupération de config POST (/ORDER dans request.js)
           
-          
-      function promisePost() 
-          {
-            return new Promise((resolve, reject)=> 
-            {
-              const request= new XMLHttpRequest();
-              request.open("POST", GET_choice);
-              request.setRequestHeader('Content-Type', 'application/json')
-              //NB: const order à définir dans panier.js, avec objet contact et tableau products
-              request.send(order);
-              request.onreadystatechange = function() 
-              {
-                if (this.readyState === XMLHttpRequest.DONE) 
-                {
-                  if (this.status >=200 && this.status<300)
-                  {
-                    resolve(JSON.parse(this.responseText));
-                    var response = JSON.parse(this.responseText);
-                    window.localStorage.setItem("order", this.responseText)
-                  } else 
-                  {
-                    reject(XMLHttpRequest);
-                    console.error("erreur POST");
-                  }
-                }
-              }
-            })
-      };
-      
-      var GET_choice = `${API_URL._HOST + API_URL._DIR + API_URL._CATEGORY}/${API_URL._ORDER}`
       
       let objet = 
       {
@@ -281,10 +247,38 @@ if (userBasket.length>=1)
           
       let order= JSON.stringify(objet);
       
-      // Requete POST
+      // fonction promisePost - appelée 1 seule fois donc présente ici
+      function promisePost() 
+      {
+        return new Promise((resolve, reject)=> 
+        {
+          const request= new XMLHttpRequest();
+          request.open('POST',openURL_ORDER);
+          request.setRequestHeader('Content-Type', 'application/json')
+          request.send(order);
+          request.onreadystatechange = function() 
+          {
+            if (this.readyState === XMLHttpRequest.DONE) 
+            {
+              if (this.status >=200 && this.status<300)
+              {
+              resolve(JSON.parse(this.responseText));
+              var response = JSON.parse(this.responseText);
+              window.localStorage.setItem("order", this.responseText)
+              } else 
+              {
+                reject(XMLHttpRequest);
+                console.error("erreur POST");
+              }
+            }
+          }
+        })
+      };
+
       promisePost()
+      // Requete POST
         .then(function(response) 
-            {          
+            {
               //une fois que la commande est passée, désactiver boutons submit et reset
               submitForm.style.display = 'none'
               resetForm.style.display= 'none'

@@ -1,13 +1,14 @@
 // Récupération de données API (tableau GET/)
 
-function promiseGet() 
-{
+function promiseGet(...args) 
+{   const request= new XMLHttpRequest();
+    request.open(...args);
+    // NB: variable GET_choice à modifier pour chaque page, permet d'éviter répétition requete HTTP
+    request.send();
+
     return new Promise((resolve, reject)=> 
     {
-        const request= new XMLHttpRequest();
-        request.open("GET", GET_choice);
-        // NB: variable GET_choice à modifier pour chaque page, permet d'éviter répétition requete HTTP
-        request.send();
+        
         request.onreadystatechange = function() 
         {
             if (this.readyState === XMLHttpRequest.DONE) 
@@ -50,7 +51,7 @@ const categories=
 }
 
 
-// création API_URL pour pouvoir éviter répétition des requetes HTTP, car composant de GET_choice
+// création API_URL pour pouvoir éviter répétition des requetes HTTP
 const API_URL=
 {
     _HOST:"http://localhost:3000/",
@@ -60,33 +61,13 @@ const API_URL=
     _ORDER:"order"
 }
 
+// création de 3 constantes pour éviter répitition requetes HTTP (données => arguments fonction)
+//requete URL de base (requete GET)
+const openURL=API_URL._HOST+API_URL._DIR+API_URL._CATEGORY
+//requete URL avec ID (requete GET)
+const openURL_ID=API_URL._HOST+API_URL._DIR+API_URL._CATEGORY+'/'+API_URL._ID
+//requete URL avec order (requete POST)
+const openURL_ORDER=API_URL._HOST + API_URL._DIR + API_URL._CATEGORY+'/'+API_URL._ORDER
 
-// function promisePost() 
-//   {
-//       return new Promise((resolve, reject)=> 
-//       {
-//           const request= new XMLHttpRequest();
-//           request.open("POST", GET_choice);
-//           request.setRequestHeader('Content-Type', 'application/json')
-//           //NB: const order à définir dans panier.js, avec objet contact et tableau products
-//           request.send(order);
-//           request.onreadystatechange = function() 
-//           {
-//               if (this.readyState === XMLHttpRequest.DONE) 
-//               {
-//                 if (this.status >=200 && this.status<300)
-//                 {
-//                     resolve(JSON.parse(this.responseText));
-//                     var response = JSON.parse(this.responseText);
-//                     console.log(response);
-//                     alert("lire la réponse avec l'orderId")
-//                     window.localStorage.setItem("order", this.responseText)
-//                 } else 
-//                 {
-//                     reject(XMLHttpRequest);
-//                     console.error("erreur POST");
-//                 }
-//               }
-//           }
-//       })
-//   };
+
+// fonction promisePost présente 1 seule fois, pas de répétition, donc directement présente dans panier.js

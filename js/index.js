@@ -1,10 +1,8 @@
-// Récupération de données API (tableau GET/ faite dans request.js)
-var GET_choice = API_URL._HOST + API_URL._DIR + API_URL._CATEGORY
+// Récupération de données API/GET, fonction faite dans request.js
+// + ajout données en arguments
 
-
+promiseGet('GET', openURL)
 // Affectation des données sur page d'accueil
-
-promiseGet()
     .then(function(response) 
     {
         for (let i=0;i<response.length;i++) 

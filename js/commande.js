@@ -1,11 +1,7 @@
-// Récupération de données API (tableau GET/ faite dans request.js)
-var GET_choice = API_URL._HOST + API_URL._DIR + API_URL._CATEGORY
-
 // Pour récupérer order mis dans localstorage au moment de la requete POST sur panier:
 let order = JSON.parse(window.localStorage.getItem("order"));
 //Pour récupérer prix total mis dans localstorage dans config et mis à jour sur panier
 JSON.parse(window.localStorage.getItem("totalPrice"))
-console.log(totalPrice.length);
 
 // si ajout ou retour au panier, plusieurs éléments dans prix total, donc faire boucle pour garder le dernier total:
 while (totalPrice.length>=2)
@@ -18,7 +14,9 @@ const infoConfirm=document.createElement("h2");
 const infoCommande=document.createElement("p");
 const returnHome = document.querySelector('.js-backHome')
 
-promiseGet()
+// Récupération de données API/GET, fonction faite dans request.js
+// + ajout données en arguments
+promiseGet('GET', openURL)
 .then(function(response)
 {
 
