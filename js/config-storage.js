@@ -2,40 +2,40 @@
 
 // userbasket à initialiser
 
-if (window.localStorage.getItem('userBasket')) 
+if (window.localStorage.getItem("userBasket")) 
 {
-    console.log('User basket init and available in local browser storage')
+    console.log("User basket init and available in local browser storage")
 } else 
 {
     const userBasketInit = []
-    window.localStorage.setItem('userBasket', JSON.stringify(userBasketInit))
+    window.localStorage.setItem("userBasket", JSON.stringify(userBasketInit))
 }
   
 // confirmer le panier
 
-if (window.localStorage.getItem('confirmShoppingCart')) 
+if (window.localStorage.getItem("confirmShoppingCart")) 
 {
-    console.log('Confirm shopping cart and available in local browser storage')
+    console.log("Confirm shopping cart and available in local browser storage")
 } else 
 {
     const confirmShoppingCartInit = []
-    window.localStorage.setItem('confirmShoppingCart', JSON.stringify(confirmShoppingCartInit))
+    window.localStorage.setItem("confirmShoppingCart", JSON.stringify(confirmShoppingCartInit))
 }
   
 // config du local storage pour envoyer dans panier
-const userBasket = JSON.parse(window.localStorage.getItem('userBasket'))
-const confirmShoppingCart = JSON.parse(window.localStorage.getItem('confirmShoppingCart'))
+const userBasket = JSON.parse(window.localStorage.getItem("userBasket"))
+const confirmShoppingCart = JSON.parse(window.localStorage.getItem("confirmShoppingCart"))
 
 
 // prix total du panier
 
-if(window.localStorage.getItem('totalPrice'))
+if(window.localStorage.getItem("totalPrice"))
 {
-    console.log('Total price available in local storage')
+    console.log("Total price available in local storage")
 } else 
 {
     const totalPriceInit=[]
-    window.localStorage.setItem('totalPrice', JSON.stringify(totalPriceInit))
+    window.localStorage.setItem("totalPrice", JSON.stringify(totalPriceInit))
 }
 
-const totalPrice=JSON.parse(window.localStorage.getItem('totalPrice'))
+const totalPrice=JSON.parse(window.localStorage.getItem("totalPrice"))

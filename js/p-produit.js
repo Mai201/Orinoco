@@ -44,7 +44,7 @@ promiseGet('GET', openURL_ID)
             {
                 let option=document.querySelector(".menu");
                 option.value = response.lenses[j];
-                option.innerHTML+=`<option class="itemsChoice" >Choix: ${response.lenses[j]}</option>`
+                option.innerHTML+='<option class="itemsChoice" >Choix:'+response.lenses[j]+'</option>'
             }
         } catch (error)
         {
@@ -96,18 +96,18 @@ promiseGet('GET', openURL_ID)
             ajoutPanier.addEventListener('click', (event) => 
             {
                 event.preventDefault()
-                quantitePanier.style.display = 'inline-block'
+                quantitePanier.style.display = "inline-block"
                 quantiteMessage.textContent = Number(quantiteMessage.textContent) + 1
 
-                userBasket.push([response._id, '1'])
+                userBasket.push([response._id, "1"])
 
-                if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
+                if (window.localStorage.getItem("userBasket", JSON.stringify(userBasket)) !== null) 
                 {
-                    window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
+                    window.localStorage.setItem("userBasket", JSON.stringify(userBasket))
                 }
 
-                supprPanier.style.display = 'inline-block'
-                validPanier.style.display = 'inline-block'
+                supprPanier.style.display = "inline-block"
+                validPanier.style.display = "inline-block"
 
             })
         } catch (error)
@@ -127,13 +127,13 @@ promiseGet('GET', openURL_ID)
                 if (quantiteMessage.textContent >= 0) 
                 {
                     userBasket.pop(response)
-                    window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
+                    window.localStorage.setItem("userBasket", JSON.stringify(userBasket))
                 }
                 if (quantiteMessage.textContent <= 0)
                 {
-                    supprPanier.style.display = 'none'
-                    quantitePanier.style.display = 'none'
-                    validPanier.style.display = 'none'
+                    supprPanier.style.display = "none"
+                    quantitePanier.style.display = "none"
+                    validPanier.style.display = "none"
                 }
             })
         } catch(error) 

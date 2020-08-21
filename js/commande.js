@@ -9,10 +9,10 @@ while (totalPrice.length>=2)
     var first=totalPrice.shift();
 }
 
-const orderDescription = document.querySelector('.js-orderDescription')
+const orderDescription = document.querySelector(".js-orderDescription")
 const infoConfirm=document.createElement("h2");
 const infoCommande=document.createElement("p");
-const returnHome = document.querySelector('.js-backHome')
+const returnHome = document.querySelector(".js-backHome")
 
 // Récupération de données API/GET, fonction faite dans request.js
 // + ajout données en arguments
@@ -28,23 +28,23 @@ promiseGet('GET', openURL)
     } else 
     {
         orderDescription.innerHtml +=
-        '<h2>Il y a un problème avec votre commande</h2><p><a href="panier.html">Retour au panier</a></p>'
+        `<h2>Il y a un problème avec votre commande</h2><p><a href="panier.html">Retour au panier</a></p>`
     }
 
     returnHome.addEventListener('click', (event) => 
     {
         event.preventDefault()
-        returnHome.classList.add('alert','alert-warning')
+        returnHome.classList.add("alert","alert-warning")
         returnHome.innerHTML="Réinitialisation. Vous pouvez désormais passer une nouvelle commande"
         window.localStorage.clear()
         window.setTimeout(function () 
         {
-            window.location = 'index.html'
+            window.location = "index.html"
         }, 2000)
     })
 })
 
 .catch(function(ex) 
 {
-    console.error(`erreur de données de confirmation : ${JSON.stringify(ex)}`)
+    console.error("erreur de données de confirmation")
 })

@@ -31,16 +31,16 @@ promiseGet('GET', openURL)
   }
     if (totalPay >= 1) 
     {
-      totalContent.textContent = `Récapitulatif de votre commande d'un total de : ${totalPay}€`
+      totalContent.textContent = "Récapitulatif de votre commande d'un total de" + totalPay+ "€"
     } else 
     {
       totalContent.textContent = "Vous n'avez pas d'article dans le panier actuellement"
     }
 
     totalPrice.push(totalPay)
-    if (window.localStorage.getItem('totalPrice', JSON.stringify(totalPrice)) !== null) 
+    if (window.localStorage.getItem("totalPrice", JSON.stringify(totalPrice)) !== null) 
     {
-      window.localStorage.setItem('totalPrice', JSON.stringify(totalPrice))
+      window.localStorage.setItem("totalPrice", JSON.stringify(totalPrice))
     }
 
     // ajout d'un bouton pour vider le panier
@@ -65,19 +65,19 @@ promiseGet('GET', openURL)
 
 
 // constante pour récup élément du DOM
-const form=document.querySelector('.form');
+const form=document.querySelector(".form");
 
 // envoi POST, order, et formulaire à vérifier avant envoi, si quelque chose dans le panier
 if (userBasket.length>=1)
 {
-  const formInfo=document.createElement('div');
-  formInfo.classList.add('form-info');
-  const legendInfo=document.createElement('legend');
-  const labelFamilyName=document.createElement('label')
-  const familyName = document.createElement('input');
-  familyName.classList.add('js-familyName', 'form-control')
-  let helpForm=document.createElement('div')
-  helpForm.classList.add('text-center')
+  const formInfo=document.createElement("div");
+  formInfo.classList.add("form-info");
+  const legendInfo=document.createElement("legend");
+  const labelFamilyName=document.createElement("label")
+  const familyName = document.createElement("input");
+  familyName.classList.add("js-familyName", "form-control")
+  let helpForm=document.createElement("div")
+  helpForm.classList.add("text-center")
   familyName.required=true;
   familyName.name="Nom de famille"
   familyName.id="familyName"
@@ -88,9 +88,9 @@ if (userBasket.length>=1)
   form.appendChild(formInfo).appendChild(labelFamilyName).innerHTML="Nom de famille :"
   form.appendChild(formInfo).appendChild(familyName)
 
-  const labelGivenName=document.createElement('label')
-  const givenName = document.createElement('input');
-  givenName.classList.add('js-givenName', 'form-control')
+  const labelGivenName=document.createElement("label")
+  const givenName = document.createElement("input");
+  givenName.classList.add("js-givenName", "form-control")
   givenName.required=true;
   givenName.name="Prénom"
   givenName.id="givenName"
@@ -100,9 +100,9 @@ if (userBasket.length>=1)
   form.appendChild(formInfo).appendChild(labelGivenName).innerHTML="Prénom :"
   form.appendChild(formInfo).appendChild(givenName)
 
-  const labelEmail=document.createElement('label')
-  const email = document.createElement('input');
-  email.classList.add('js-email', 'form-control')
+  const labelEmail=document.createElement("label")
+  const email = document.createElement("input");
+  email.classList.add("js-email", "form-control")
   email.required=true;
   email.name="Adresse e-mail"
   email.id="email"
@@ -112,9 +112,9 @@ if (userBasket.length>=1)
   form.appendChild(formInfo).appendChild(labelEmail).innerHTML="Adresse e-mail :"
   form.appendChild(formInfo).appendChild(email)
 
-  const labelAddress=document.createElement('label')
-  const address = document.createElement('input');
-  address.classList.add('js-address', 'form-control')
+  const labelAddress=document.createElement("label")
+  const address = document.createElement("input");
+  address.classList.add("js-address", "form-control")
   address.required=true;
   address.name="Adresse"
   address.id="address"
@@ -124,9 +124,9 @@ if (userBasket.length>=1)
   form.appendChild(formInfo).appendChild(labelAddress).innerHTML="Adresse :"
   form.appendChild(formInfo).appendChild(address)
 
-  const labelAddressCity=document.createElement('label')
-  const addressCity = document.createElement('input');
-  addressCity.classList.add('js-addressCity', 'form-control')
+  const labelAddressCity=document.createElement("label")
+  const addressCity = document.createElement("input");
+  addressCity.classList.add("js-addressCity", "form-control")
   addressCity.required=true;
   addressCity.name="Ville"
   addressCity.id="addressCity"
@@ -137,16 +137,16 @@ if (userBasket.length>=1)
   form.appendChild(formInfo).appendChild(labelAddressCity).innerHTML="Ville : "
   form.appendChild(formInfo).appendChild(addressCity)
 
-  const commandForm=document.createElement('div')
-  commandForm.classList.add('row', 'col')
-  const submitForm = document.createElement('button');
-  submitForm.classList.add('js-submitForm', 'btn', 'btn-primary', 'col-4')
+  const commandForm=document.createElement("div")
+  commandForm.classList.add("row", "col")
+  const submitForm = document.createElement("button");
+  submitForm.classList.add("js-submitForm", "btn", "btn-primary", "col-4")
   submitForm.type="submit"
 
   form.appendChild(formInfo).appendChild(commandForm).appendChild(submitForm).innerHTML="Confirmer"
 
-  const resetForm=document.createElement('button')
-  resetForm.classList.add('js-resetForm', 'btn','btn-danger','offset-4','col-4')
+  const resetForm=document.createElement("button")
+  resetForm.classList.add("js-resetForm", "btn","btn-danger","offset-4","col-4")
   resetForm.type="reset"
 
   form.appendChild(formInfo).appendChild(commandForm).appendChild(resetForm).innerHTML="Supprimer"
@@ -179,9 +179,9 @@ if (userBasket.length>=1)
     } else
     {
       form.appendChild(helpForm);
-      helpForm.classList.add('alert', 'alert-info');
+      helpForm.classList.add("alert", "alert-info");
       helpForm.role="alert";
-      helpForm.innerHTML=`Nom et prénom: seuls les caractères alpha sont autorisés`
+      helpForm.innerHTML="Nom et prénom: seuls les caractères alpha sont autorisés"
       event.preventDefault()
     }   
     if (validEmail(email.value))
@@ -189,9 +189,9 @@ if (userBasket.length>=1)
     } else
     {
       form.appendChild(helpForm);
-      helpForm.classList.add('alert', 'alert-info');
+      helpForm.classList.add("alert", "alert-info");
       helpForm.role="alert";
-      helpForm.innerHTML=`Adresse mail incorrecte`
+      helpForm.innerHTML="Adresse mail incorrecte"
       event.preventDefault()
     }
     if(validAddress(address.value))
@@ -199,9 +199,9 @@ if (userBasket.length>=1)
     } else
     {
       form.appendChild(helpForm);
-      helpForm.classList.add('alert', 'alert-info');
+      helpForm.classList.add("alert", "alert-info");
       helpForm.role="alert";
-      helpForm.innerHTML=`Adresse incorrecte, minimum 8 caractères`
+      helpForm.innerHTML="Erreur: minimum 8 caractères, et que des caractères alpha"
       event.preventDefault()
     }
     if(validCity(addressCity.value))
@@ -209,9 +209,9 @@ if (userBasket.length>=1)
     } else
     {
       form.appendChild(helpForm);
-      helpForm.classList.add('alert', 'alert-info');
+      helpForm.classList.add("alert", "alert-info");
       helpForm.role="alert";
-      helpForm.innerHTML=`Ville incorrecte, minimum 3 caractères`
+      helpForm.innerHTML="Erreur: minimum 3 caractères, et que des caractères alpha"
       event.preventDefault()
     }
 
@@ -280,35 +280,35 @@ if (userBasket.length>=1)
         .then(function(response) 
             {
               //une fois que la commande est passée, désactiver boutons submit et reset
-              submitForm.style.display = 'none'
-              resetForm.style.display= 'none'
+              submitForm.style.display = "none"
+              resetForm.style.display= "none"
 
               // alert bootstrap pour annoncer que commande passée
-              form.classList.add('alert', 'alert-success');
+              form.classList.add("alert", "alert-success");
               form.role="alert";
-              form.innerHTML+=`Votre commande a bien été prise en compte! Merci de patienter`
+              form.innerHTML+="Votre commande a bien été prise en compte! Merci de patienter"
       
               confirmShoppingCart.push(contact, products)
       
-              if (window.localStorage.getItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart)) !== null) 
+              if (window.localStorage.getItem("confirmShoppingCart", JSON.stringify(confirmShoppingCart)) !== null) 
               {
-              window.localStorage.setItem('confirmShoppingCart', JSON.stringify(confirmShoppingCart))
+              window.localStorage.setItem("confirmShoppingCart", JSON.stringify(confirmShoppingCart))
               }
-              if (window.localStorage.getItem('userBasket', JSON.stringify(userBasket)) !== null) 
+              if (window.localStorage.getItem("userBasket", JSON.stringify(userBasket)) !== null) 
               {
-              window.localStorage.setItem('userBasket', JSON.stringify(userBasket))
+              window.localStorage.setItem("userBasket", JSON.stringify(userBasket))
               }
       
               window.setTimeout(() => 
               {
-              window.location = 'commande.html'
+              window.location = "commande.html"
               }, 2000)
       
         })
             
         .catch(function(ex) 
         {
-          console.error(`erreur requete promise : ${JSON.stringify(ex)}`)
+          console.error("erreur requete promise")
         })
 
     } else 
@@ -321,7 +321,7 @@ if (userBasket.length>=1)
 
 } else 
 {
-  form.classList.add('alert', 'alert-info');
+  form.classList.add("alert", "alert-info");
   form.role="alert";
-  form.innerHTML+=`Panier vide, formulaire de commande désactivé`
+  form.innerHTML+="Panier vide, formulaire de commande désactivé"
 }

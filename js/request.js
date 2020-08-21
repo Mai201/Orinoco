@@ -3,7 +3,7 @@
 function promiseGet(...args) 
 {   const request= new XMLHttpRequest();
     request.open(...args);
-    // NB: variable GET_choice à modifier pour chaque page, permet d'éviter répétition requete HTTP
+    // NB: arguments à modifier pour chaque page, permet d'éviter répétition requete HTTP
     request.send();
 
     return new Promise((resolve, reject)=> 
@@ -29,25 +29,26 @@ function promiseGet(...args)
 };
 
 // Récupération de l'ID pour caméras (GET/_ID)
+
 // Pour mémoire: 
-// new URL(location.href).searchParams.get('year')
+// new URL(location.href).searchParams.get("year")
 // Returns 2008 for href = "http://localhost/search.php?year=2008".
 //  Or in two steps:
 // const params = new URL(location.href).searchParams;
-// const year = params.get('year');
+// const year = params.get("year");
 
 // pour chercher la partie de l'URL qui suit le symbole "?"
 const idUrl= window.location.search
 // Pour paramétrer objet URLSearchParams
 const idCameras= new URLSearchParams(idUrl)
 // pour retourner valeur associée au paramètre donné
-const ID_URL=idCameras.get('id')
+const ID_URL=idCameras.get("id")
 
 const categories=
 {
-    cat1:'cameras',
-    cat2:'teddies',
-    cat3:'furniture'
+    cat1:"cameras",
+    cat2:"teddies",
+    cat3:"furniture"
 }
 
 
@@ -65,9 +66,9 @@ const API_URL=
 //requete URL de base (requete GET)
 const openURL=API_URL._HOST+API_URL._DIR+API_URL._CATEGORY
 //requete URL avec ID (requete GET)
-const openURL_ID=API_URL._HOST+API_URL._DIR+API_URL._CATEGORY+'/'+API_URL._ID
+const openURL_ID=API_URL._HOST+API_URL._DIR+API_URL._CATEGORY+"/"+API_URL._ID
 //requete URL avec order (requete POST)
-const openURL_ORDER=API_URL._HOST + API_URL._DIR + API_URL._CATEGORY+'/'+API_URL._ORDER
+const openURL_ORDER=API_URL._HOST + API_URL._DIR + API_URL._CATEGORY+"/"+API_URL._ORDER
 
 
 // fonction promisePost présente 1 seule fois, pas de répétition, donc directement présente dans panier.js
