@@ -33,8 +33,8 @@ console when the server starts, e.g. `Listening on port 3001`.
 |  |  | Dans tableau mais aussi dans tableau |  |
 | panier.html | Vider le panier | Tous les articles sont supprimes et local storage reinit | Alerte Bootstrap panier vide, formulaire de commande desactive |
 | panier.html | Valider formulaire | Formulaire n est pas valide tant que tous les champs obligatoires ne sont pas remplis | Alerte Bootstrap veuillez renseigner ce champ |
-| panier.html | Validation commande | Envoi est desactive tant que les champs ne sont pas remplis correctement regex | Alerte Bootstrap sur ‚l‚ment … renseigner correctement |
-|  |  |  | Si erreur, console.errorÿerreur dans le formulaire, pas d?envoi |
-| panier.html | Validation commande | Envoi requete POST est fait, et redirection sur page de remerciement | Si erreur, console.error requˆte promise |
-|  |  |  | Si tout est ok, alerte Bootstrap Votre commande a bien ‚t‚ prise en compte Merci de patienter |
-| commande.html | Commande validee | recuperer et afficher Id de commande et prix total | Si erreur, console.errorÿerreur de donnees de confirmation |
+| panier.html | Validation commande | Envoi est desactive tant que les champs ne sont pas remplis correctement regex | Alerte Bootstrap sur element a renseigner correctement |
+|  |  |  | Si erreur, console.error erreur dans le formulaire, pas d envoi |
+| panier.html | Validation commande | Envoi requete POST est fait, et redirection sur page de remerciement | Si erreur, console.error requete promise |
+|  |  |  | Si tout est ok, alerte Bootstrap Votre commande a bien ete prise en compte Merci de patienter |
+| commande.html | Commande validee | recuperer et afficher Id de commande et prix total | Si erreur, console.error erreur de donnees de confirmation |
