@@ -17,7 +17,6 @@ function promiseGet(...args)
                 {
                    resolve(JSON.parse(this.responseText)) 
                    var response = JSON.parse(this.responseText);
-                //    console.log(response);
                 } else 
                 {
                     reject(XMLHttpRequest);
