@@ -31,7 +31,7 @@ promiseGet('GET', openURL)
   }
     if (totalPay >= 1) 
     {
-      totalContent.textContent = "Récapitulatif de votre commande d'un total de" + totalPay+ "€"
+      totalContent.textContent = "Récapitulatif de votre commande d'un total de " + totalPay+ "€"
     } else 
     {
       totalContent.textContent = "Vous n'avez pas d'article dans le panier actuellement"
@@ -84,7 +84,7 @@ if (userBasket.length>=1)
   familyName.type="text"
   familyName.placeholder="Minuscule ou majuscule"
 
-  form.appendChild(formInfo).appendChild(legendInfo).innerHTML="Formulaire à remplir pour passer commande :"
+  form.appendChild(formInfo).appendChild(legendInfo).innerHTML="Formulaire à confirmer pour passer commande :"
   form.appendChild(formInfo).appendChild(labelFamilyName).innerHTML="Nom de famille :"
   form.appendChild(formInfo).appendChild(familyName)
 
