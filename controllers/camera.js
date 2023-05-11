@@ -1,4 +1,8 @@
-const uuid = require('uuid/v1');
+// const uuid = require('uuid/v1');
+
+const { v1: uuidv1 } = require('uuid');
+uuidv1();
+
 const Camera = require('../models/Camera');
 
 exports.getAllCameras = (req, res, next) => {
